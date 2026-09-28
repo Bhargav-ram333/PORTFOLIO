@@ -30,6 +30,20 @@
   <script src="js/confetti.min.js"></script>
 </head>
 <body>
+  <!-- Direct Autoplay Welcome Audio -->
+  <audio id="welcome-audio" src="assets/svagatham_song.wav" preload="auto" autoplay playsinline></audio>
+  <script>
+    (function() {
+      try {
+        var a = document.getElementById('welcome-audio');
+        if (a) {
+          a.volume = 0.9;
+          var p = a.play();
+          if (p !== undefined) { p.catch(function() {}); }
+        }
+      } catch(e) {}
+    })();
+  </script>
 
   <!-- ==========================================================================
        SITE HEADER / FLOATING GLASS NAVBAR

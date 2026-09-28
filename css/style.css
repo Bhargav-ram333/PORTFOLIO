@@ -143,17 +143,83 @@ a {
 }
 
 /* ==========================================================================
-   3D THREE.JS FLYING CROW CURSOR
+   REAL CROW CUSTOM CURSOR
    ========================================================================== */
-#crow-3d-canvas {
+.real-crow-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 72px;
+  height: 72px;
   pointer-events: none;
   z-index: 99999;
+  will-change: transform;
+  transform-origin: 50% 30%;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 10px rgba(255, 42, 66, 0.4));
+  transition: filter 0.25s ease;
+}
+
+.real-crow-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.real-crow-eye {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ff2a42;
+  box-shadow: 0 0 6px #ffa200, 0 0 3px #ff2a42;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+body.cursor-hover .real-crow-cursor,
+body.cursor-view .real-crow-cursor,
+body.cursor-copy .real-crow-cursor {
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 16px rgba(255, 107, 53, 0.8));
+}
+
+/* Welcome Audio Hint Banner (For Browsers Deferring Autoplay) */
+.welcome-audio-hint {
+  position: fixed;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  cursor: pointer;
+  animation: pulseHint 2s infinite ease-in-out;
+}
+
+.audio-hint-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  background: rgba(14, 16, 24, 0.94);
+  border: 1px solid rgba(255, 162, 0, 0.6);
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.75), 0 0 16px rgba(255, 162, 0, 0.3);
+  backdrop-filter: blur(12px);
+  color: #ffd166;
+  font-family: var(--font-body);
+  font-size: 0.84rem;
+}
+
+.audio-hint-inner strong {
+  color: #fff;
+}
+
+@keyframes pulseHint {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50% { transform: translateX(-50%) scale(1.03); }
 }
 
 /* Action Pill beside Crow */
