@@ -186,7 +186,7 @@ class AudioEngine {
         p.then(() => {
           this.onWelcomeStarted();
         }).catch(() => {
-          this.showAudioHint();
+          // Browser requires ambient engagement, will auto-play on first motion or focus
         });
       }
     }
@@ -197,6 +197,7 @@ class AudioEngine {
     try {
       const source = this.audioCtx.createBufferSource();
       source.buffer = this.welcomeBuffer;
+      source.loop = false;
       const gainNode = this.audioCtx.createGain();
       gainNode.gain.value = 0.9;
       source.connect(gainNode);
@@ -223,13 +224,6 @@ class AudioEngine {
     this.welcomePlayed = true;
     this.renderMusicBadge();
     this.removeUnlockListeners();
-
-    const hint = document.getElementById('welcome-audio-hint');
-    if (hint) {
-      hint.style.opacity = '0';
-      hint.style.transform = 'translate(-50%, -10px)';
-      setTimeout(() => hint.remove(), 400);
-    }
   }
 
   removeUnlockListeners() {
@@ -252,27 +246,6 @@ class AudioEngine {
       window.removeEventListener(evt, this.unlockHandler, { passive: true });
       window.removeEventListener(evt, this.unlockHandler);
     });
-  }
-
-  showAudioHint() {
-    if (this.welcomePlayed || document.getElementById('welcome-audio-hint')) return;
-
-    const hint = document.createElement('div');
-    hint.id = 'welcome-audio-hint';
-    hint.className = 'welcome-audio-hint';
-    hint.innerHTML = `
-      <div class="audio-hint-inner">
-        <span class="hint-pulse">🎵</span>
-        <span class="hint-text">నమస్కారం! Click anywhere to play <strong>స్వాగతం సుస్వాగతం</strong></span>
-      </div>
-    `;
-
-    hint.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.playWelcome();
-    });
-
-    document.body.appendChild(hint);
   }
 
   renderMusicBadge() {

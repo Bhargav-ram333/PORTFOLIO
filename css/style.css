@@ -187,43 +187,7 @@ body.cursor-copy .real-crow-cursor {
   filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 16px rgba(255, 107, 53, 0.8));
 }
 
-/* Welcome Audio Hint Banner (For Browsers Deferring Autoplay) */
-.welcome-audio-hint {
-  position: fixed;
-  top: 82px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100000;
-  cursor: pointer;
-  animation: pulseHint 2.4s infinite ease-in-out;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-}
 
-.audio-hint-inner {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 24px;
-  background: rgba(14, 16, 24, 0.96);
-  border: 1px solid rgba(255, 162, 0, 0.7);
-  border-radius: var(--radius-full);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 162, 0, 0.35);
-  backdrop-filter: blur(14px);
-  color: #ffd166;
-  font-family: var(--font-body);
-  font-size: 0.88rem;
-  user-select: none;
-}
-
-.audio-hint-inner strong {
-  color: #fff;
-  font-weight: 700;
-}
-
-@keyframes pulseHint {
-  0%, 100% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(1.03); }
-}
 
 /* Action Pill beside Crow */
 .crow-action-pill {
