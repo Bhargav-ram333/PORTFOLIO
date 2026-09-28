@@ -641,6 +641,53 @@ body.cursor-hover .crow-action-pill {
   flex-wrap: wrap;
 }
 
+/* Telugu Cultural Welcome Badge */
+.badge-telugu-svagatham {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  background: rgba(255, 42, 66, 0.12);
+  border: 1px solid rgba(255, 42, 66, 0.4);
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 16px rgba(255, 42, 66, 0.2), inset 0 0 10px rgba(255, 107, 53, 0.1);
+  transition: transform 0.3s var(--ease-spring), border-color 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.badge-telugu-svagatham:hover {
+  transform: translateY(-2px) scale(1.03);
+  border-color: var(--accent-amber);
+  box-shadow: 0 0 22px rgba(255, 162, 0, 0.35);
+}
+
+.telugu-spark {
+  color: var(--accent-amber);
+  font-size: 0.85rem;
+  animation: pulseGlow 2s infinite;
+}
+
+.telugu-glyph {
+  font-family: 'Noto Sans Telugu', 'Kohinoor Telugu', 'Gautami', 'Nirmala UI', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 12px rgba(255, 42, 66, 0.6);
+}
+
+.telugu-translit {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  padding-left: 6px;
+  border-left: 1px solid rgba(255, 255, 255, 0.15);
+}
+
 .hero-greeting {
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -648,6 +695,13 @@ body.cursor-hover .crow-action-pill {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.hero-greeting .telugu-inline {
+  font-family: 'Noto Sans Telugu', 'Kohinoor Telugu', 'Gautami', 'Nirmala UI', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 42, 66, 0.5);
 }
 
 .hero-title {
