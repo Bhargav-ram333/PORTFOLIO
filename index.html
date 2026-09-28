@@ -20,7 +20,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Suranna&display=swap" rel="stylesheet">
 
   <!-- Main Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -57,16 +57,6 @@
       </nav>
 
       <div class="nav-actions">
-        <!-- SFX Synthesizer Toggle -->
-        <button id="sound-toggle" class="sound-toggle-btn" title="Toggle Futuristic Audio Effects">
-          <div class="equalizer-bars">
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-            <span class="eq-bar"></span>
-          </div>
-          <span class="sound-text">SFX OFF</span>
-        </button>
-
         <!-- Resume Action -->
         <a href="assets/resume.pdf" target="_blank" class="btn-nav-resume btn-view-resume">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
@@ -91,20 +81,33 @@
       <div class="hero-overlay-grid"></div>
 
       <div class="container" style="position: relative; z-index: 10;">
+
+        <!-- ==========================================================================
+             SVAGATHAM (స్వాగతం) GRAND TELUGU WELCOMING HEADER
+             ========================================================================== -->
+        <div class="svagatham-grand-header" aria-label="స్వాగతం - Welcome">
+          <div class="svagatham-ornament-line">
+            <span class="svagatham-line-accent"></span>
+            <span class="svagatham-knot">✦ నమస్కారం ✦</span>
+            <span class="svagatham-line-accent"></span>
+          </div>
+          <h2 class="svagatham-telugu-word">స్వాగతం</h2>
+          <div class="svagatham-roman-caption">
+            <span class="svagatham-caps">S V A G A T H A M</span>
+            <span class="svagatham-dot">•</span>
+            <span class="svagatham-meaning">A Cordial Welcome</span>
+          </div>
+        </div>
+
         <div class="hero-content">
           <div class="hero-eyebrow-wrapper">
-            <div class="badge-telugu-svagatham" title="Svagatham — Warm Telugu Greeting">
-              <span class="telugu-spark">✦</span>
-              <span class="telugu-glyph">స్వాగతం</span>
-              <span class="telugu-translit">Svagatham</span>
-            </div>
             <div class="badge-status">
               <span class="pulse-dot"></span>
               AI & Data Science • Machine Learning Engineer
             </div>
             <span class="hero-greeting">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-              <span class="telugu-inline">స్వాగతం</span> • Welcome to My Portfolio
+              Welcome to My Portfolio
             </span>
           </div>
 

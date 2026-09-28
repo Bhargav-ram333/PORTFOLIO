@@ -1,7 +1,11 @@
 /**
- * Majestic Flying Crow Cursor & Feather/Ember Particle Engine
- * Custom soaring raven simulation with aerodynamic banking, dynamic wing flap physics,
- * drifting charcoal feather trails, and molten ember bursts.
+ * Realistic Soaring Raven / Crow Cursor & Sound Engine
+ * Portfolio of Chiravuri Satya Siva Bhargav
+ * Features:
+ *  - Anatomically authentic corvid silhouette with primary flight pinions & wedge tail
+ *  - Aerodynamic banking, dynamic dihedral wing flap physics, and pitch-roll mechanics
+ *  - Authentic crow cawing sound trigger on interaction with animated beak opening
+ *  - Drifting charcoal feathers and molten ember particle engine
  */
 
 class FlyingCrowCursor {
@@ -14,9 +18,10 @@ class FlyingCrowCursor {
     this.crow.className = 'custom-crow-cursor';
     this.crow.setAttribute('aria-hidden', 'true');
 
-    // Inline crisp SVG crow silhouette with articulated wings, sharp beak, and ruby eyes
+    // Anatomically detailed Corvid silhouette with individual slotted flight pinions,
+    // articulated maxilla beak, throat hackles, and glossy plumage sheen
     this.crow.innerHTML = `
-      <svg class="crow-svg" viewBox="0 0 60 50" width="46" height="38">
+      <svg class="crow-svg" viewBox="0 0 68 56" width="54" height="44">
         <defs>
           <filter id="crowEyeGlow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur" />
@@ -25,62 +30,90 @@ class FlyingCrowCursor {
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
+          <linearGradient id="featherSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#141824" />
+            <stop offset="50%" stop-color="#08090e" />
+            <stop offset="100%" stop-color="#1c1622" />
+          </linearGradient>
+          <linearGradient id="wingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#161b28" />
+            <stop offset="100%" stop-color="#07080c" />
+          </linearGradient>
         </defs>
 
         <!-- Dynamic Flight Container -->
         <g class="crow-flight-group">
-          <!-- Raven Wedge Tail Feathers -->
-          <path class="crow-tail" d="M26,28 L22,46 L30,48 L38,46 L34,28 Z" fill="#08090d" stroke="#ff2a42" stroke-width="0.5" stroke-opacity="0.5" />
-          <path d="M26,30 L27,45 M30,30 L30,47 M34,30 L33,45" stroke="#161822" stroke-width="0.75" />
-
-          <!-- Left Wing (Hinged at shoulder joint x=25, y=17) -->
-          <g class="crow-wing-left">
-            <path d="M25,17 C18,13 10,11 2,12 C1,13 0,15 1,17 C4,20 8,22 12,23 C16,24 21,23 25,21 Z" 
-                  fill="#0a0c13" stroke="#ff2a42" stroke-width="0.6" stroke-opacity="0.6" />
-            <!-- Fingered Primary Feather Tips -->
-            <path d="M2,12 C-1,14 0,17 3,18 M4,18 C2,20 4,22 7,22 M8,22 C6,24 9,25 12,24" 
-                  stroke="#050608" stroke-width="1.2" fill="none" />
-            <!-- Secondary Wing Feather Lines -->
-            <path d="M21,17 C15,15 9,16 4,15 M22,19 C17,18 12,20 7,20" 
-                  stroke="#1c1f2e" stroke-width="0.7" fill="none" />
+          <!-- Raven Wedge Tail Feathers (12 rectrices forming classic diamond wedge) -->
+          <g class="crow-tail-group">
+            <path class="crow-tail" d="M30,32 L24,52 L34,55 L44,52 L38,32 Z" fill="url(#wingGradient)" stroke="#ff2a42" stroke-width="0.5" stroke-opacity="0.4" />
+            <path d="M28,34 L27,51 M31,34 L31,54 M34,34 L34,55 M37,34 L37,54 M40,34 L41,51" stroke="#222838" stroke-width="0.8" />
           </g>
 
-          <!-- Right Wing (Hinged at shoulder joint x=35, y=17) -->
-          <g class="crow-wing-right">
-            <path d="M35,17 C42,13 50,11 58,12 C59,13 60,15 59,17 C56,20 52,22 48,23 C44,24 39,23 35,21 Z" 
-                  fill="#0a0c13" stroke="#ff2a42" stroke-width="0.6" stroke-opacity="0.6" />
-            <!-- Fingered Primary Feather Tips -->
-            <path d="M58,12 C61,14 60,17 57,18 M56,18 C58,20 56,22 53,22 M52,22 C54,24 51,25 48,24" 
-                  stroke="#050608" stroke-width="1.2" fill="none" />
-            <!-- Secondary Wing Feather Lines -->
-            <path d="M39,17 C45,15 51,16 56,15 M38,19 C43,18 48,20 53,20" 
-                  stroke="#1c1f2e" stroke-width="0.7" fill="none" />
+          <!-- Left Wing (Hinged at shoulder joint x=29, y=20) -->
+          <g class="crow-wing-left" style="transform-origin: 29px 20px;">
+            <!-- Main Wing Arm & Secondary Coverts -->
+            <path d="M29,20 C20,15 12,13 3,14 C1,16 1,18 2,20 C6,23 11,26 16,27 C21,28 26,26 29,24 Z" 
+                  fill="url(#wingGradient)" stroke="#ff2a42" stroke-width="0.6" stroke-opacity="0.45" />
+            <!-- Emarginated Primary Flight Pinions (6 slotted feathers) -->
+            <path class="pinion-p1" d="M3,14 C-1,16 0,18 4,19" stroke="#050608" stroke-width="1.6" fill="none" />
+            <path class="pinion-p2" d="M5,19 C1,21 3,23 7,23" stroke="#050608" stroke-width="1.5" fill="none" />
+            <path class="pinion-p3" d="M8,23 C5,25 7,27 11,26" stroke="#050608" stroke-width="1.5" fill="none" />
+            <path class="pinion-p4" d="M12,26 C9,28 12,30 16,28" stroke="#050608" stroke-width="1.4" fill="none" />
+            <path class="pinion-p5" d="M17,28 C15,30 18,31 22,29" stroke="#050608" stroke-width="1.3" fill="none" />
+            <!-- Feather Shaft Highlights -->
+            <path d="M26,21 C18,18 10,19 4,18 M27,23 C20,22 14,24 8,24" stroke="#2a3245" stroke-width="0.65" fill="none" />
           </g>
 
-          <!-- Sleek Torso -->
-          <path class="crow-torso" d="M26,14 C25,18 24,23 26,29 C28,31 32,31 34,29 C36,23 35,18 34,14 Z" 
-                fill="#0b0d14" stroke="#ff2a42" stroke-width="0.5" stroke-opacity="0.4" />
+          <!-- Right Wing (Hinged at shoulder joint x=39, y=20) -->
+          <g class="crow-wing-right" style="transform-origin: 39px 20px;">
+            <!-- Main Wing Arm & Secondary Coverts -->
+            <path d="M39,20 C48,15 56,13 65,14 C67,16 67,18 66,20 C62,23 57,26 52,27 C47,28 42,26 39,24 Z" 
+                  fill="url(#wingGradient)" stroke="#ff2a42" stroke-width="0.6" stroke-opacity="0.45" />
+            <!-- Emarginated Primary Flight Pinions (6 slotted feathers) -->
+            <path class="pinion-p1" d="M65,14 C69,16 68,18 64,19" stroke="#050608" stroke-width="1.6" fill="none" />
+            <path class="pinion-p2" d="M63,19 C67,21 65,23 61,23" stroke="#050608" stroke-width="1.5" fill="none" />
+            <path class="pinion-p3" d="M60,23 C63,25 61,27 57,26" stroke="#050608" stroke-width="1.5" fill="none" />
+            <path class="pinion-p4" d="M56,26 C59,28 56,30 52,28" stroke="#050608" stroke-width="1.4" fill="none" />
+            <path class="pinion-p5" d="M51,28 C53,30 50,31 46,29" stroke="#050608" stroke-width="1.3" fill="none" />
+            <!-- Feather Shaft Highlights -->
+            <path d="M42,21 C50,18 58,19 64,18 M41,23 C48,22 54,24 60,24" stroke="#2a3245" stroke-width="0.65" fill="none" />
+          </g>
 
-          <!-- Head & Razor Curved Beak (Tip at x=30, y=2) -->
-          <path class="crow-beak" d="M28.5,8 L30,2 L31.5,8 Z" fill="#181a24" stroke="#ffa200" stroke-width="0.6" />
-          <path class="crow-head" d="M27,14 C26.5,10 28,7 30,7 C32,7 33.5,10 33,14 Z" fill="#08090d" />
+          <!-- Aerodynamic Torso with Mantle & Scapulars -->
+          <path class="crow-torso" d="M30,17 C28,21 27,27 29,33 C32,36 36,36 39,33 C41,27 40,21 38,17 Z" 
+                fill="#0a0c13" stroke="#ff2a42" stroke-width="0.5" stroke-opacity="0.3" />
 
-          <!-- Ruby / Amber Molten Eyes -->
-          <circle cx="28.5" cy="8.5" r="1.1" fill="#ff2a42" filter="url(#crowEyeGlow)" />
-          <circle cx="31.5" cy="8.5" r="1.1" fill="#ff2a42" filter="url(#crowEyeGlow)" />
-          <circle cx="28.5" cy="8.5" r="0.45" fill="#ffa200" />
-          <circle cx="31.5" cy="8.5" r="0.45" fill="#ffa200" />
+          <!-- Throat Hackles (Feathery neck ruff) -->
+          <path d="M29,17 L31,21 L34,17 L37,21 L39,17" stroke="#1c202d" stroke-width="0.8" fill="none" />
+
+          <!-- Corvid Head -->
+          <path class="crow-head" d="M31,17 C30,12 32,8 34,8 C36,8 38,12 37,17 Z" fill="#08090e" />
+
+          <!-- Articulated Sharp Beak (Opens during caw) -->
+          <g class="crow-beak-group" style="transform-origin: 34px 9px;">
+            <!-- Upper Beak Maxilla -->
+            <path class="crow-beak-upper" d="M32.5,9 L34,2 L35.5,9 Z" fill="#181a24" stroke="#ffa200" stroke-width="0.65" />
+            <!-- Lower Beak Mandible -->
+            <path class="crow-beak-lower" d="M33,9 L34,3.5 L35,9 Z" fill="#0e1017" />
+          </g>
+
+          <!-- Molten Amber / Ruby Eyes with Glint -->
+          <circle cx="32.5" cy="10" r="1.2" fill="#ff2a42" filter="url(#crowEyeGlow)" />
+          <circle cx="35.5" cy="10" r="1.2" fill="#ff2a42" filter="url(#crowEyeGlow)" />
+          <circle cx="32.5" cy="10" r="0.45" fill="#ffd166" />
+          <circle cx="35.5" cy="10" r="0.45" fill="#ffd166" />
         </g>
       </svg>
     `;
 
     document.body.appendChild(this.crow);
 
-    // Reference wing elements for dynamic rotation & flapping
+    // Reference wing and beak elements
     this.leftWing = this.crow.querySelector('.crow-wing-left');
     this.rightWing = this.crow.querySelector('.crow-wing-right');
+    this.beakGroup = this.crow.querySelector('.crow-beak-group');
 
-    // Action indicator pill (appears beside the crow on hoverable targets)
+    // Action indicator pill
     this.actionPill = document.createElement('div');
     this.actionPill.className = 'crow-action-pill';
     this.actionPill.textContent = 'EXPLORE';
@@ -131,7 +164,7 @@ class FlyingCrowCursor {
       this.mouse.y = e.clientY;
 
       // Shed drifting feathers periodically during active flight
-      if (this.velocity.speed > 3 && Math.random() < 0.22) {
+      if (this.velocity.speed > 3.5 && Math.random() < 0.2) {
         this.addFeather(
           this.crowPos.x + (Math.random() - 0.5) * 16,
           this.crowPos.y + (Math.random() - 0.5) * 16,
@@ -141,7 +174,7 @@ class FlyingCrowCursor {
       }
 
       // Shed molten embers from the crow's wake
-      if (Math.random() < 0.32) {
+      if (Math.random() < 0.3) {
         const emberColor = Math.random() < 0.55 ? 'rgba(255, 42, 66, 0.9)' : 'rgba(255, 107, 53, 0.9)';
         this.addSpark(
           this.crowPos.x + (Math.random() - 0.5) * 12,
@@ -155,10 +188,18 @@ class FlyingCrowCursor {
     });
 
     window.addEventListener('mousedown', (e) => {
-      // Rapid dive / wing attack stance
+      // 1. Play authentic realistic crow caw sound
+      if (window.AudioSynth && window.AudioSynth.playCrowCaw) {
+        window.AudioSynth.playCrowCaw();
+      }
+
+      // 2. Beak caw animation
+      this.triggerCawAnimation();
+
+      // 3. Rapid dive / wing attack stance
       this.crow.style.transform = `translate(${this.crowPos.x}px, ${this.crowPos.y}px) scale(0.82) rotate(${this.headingAngle}deg)`;
 
-      // Burst of fiery embers on strike
+      // 4. Burst of fiery embers on strike
       const emberColors = ['#ff2a42', '#ff6b35', '#ffa200', '#ffd166'];
       for (let i = 0; i < 16; i++) {
         const angle = (Math.PI * 2 * i) / 16 + Math.random() * 0.3;
@@ -167,7 +208,7 @@ class FlyingCrowCursor {
         this.addSpark(e.clientX, e.clientY, Math.cos(angle) * speed, Math.sin(angle) * speed - 0.8, 3.4, color);
       }
 
-      // Shed burst of black crow feathers
+      // 5. Shed burst of raven feathers
       for (let i = 0; i < 5; i++) {
         const angle = Math.random() * Math.PI * 2;
         const speed = 1.0 + Math.random() * 2.2;
@@ -206,6 +247,21 @@ class FlyingCrowCursor {
       if (!target) return;
       document.body.classList.remove('cursor-hover', 'cursor-view', 'cursor-copy');
     });
+  }
+
+  /**
+   * Realistic beak opening animation during crow caw
+   */
+  triggerCawAnimation() {
+    if (this.beakGroup) {
+      this.beakGroup.style.transition = 'transform 0.08s ease';
+      this.beakGroup.style.transform = 'scaleY(1.5) scaleX(1.15) translateY(-2px)';
+      setTimeout(() => {
+        if (this.beakGroup) {
+          this.beakGroup.style.transform = 'scaleY(1) scaleX(1) translateY(0)';
+        }
+      }, 280);
+    }
   }
 
   addFeather(x, y, vx, vy) {
@@ -291,12 +347,11 @@ class FlyingCrowCursor {
     }
 
     // Apply 3D aerodynamic flight transformation to crow
-    // Beak tip (x=30, y=2) sits right under the pointer coordinate
     this.crow.style.transform = `translate(${this.crowPos.x}px, ${this.crowPos.y}px) translate(-50%, -12%) rotate(${this.headingAngle}deg) skewX(${this.bankAngle * 0.35}deg)`;
 
     // Position action pill near the crow
     if (this.actionPill) {
-      this.actionPill.style.transform = `translate(${this.crowPos.x + 24}px, ${this.crowPos.y + 14}px)`;
+      this.actionPill.style.transform = `translate(${this.crowPos.x + 26}px, ${this.crowPos.y + 14}px)`;
     }
 
     // Render Canvas: Feathers & Embers

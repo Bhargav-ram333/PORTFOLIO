@@ -1,128 +1,182 @@
 /**
- * Interactive Audio Synthesizer Engine
+ * Audio Engine & Welcome Theme
  * Portfolio of Chiravuri Satya Siva Bhargav
- * Clean, futuristic Web Audio API UI feedback tones
+ * Features:
+ *  - Automatic welcoming melody: "Svagatham Susvagatham" (స్వాగతం సుస్వాగతం)
+ *  - Realistic Crow Caw sound trigger for the flying crow cursor
+ *  - Interactive feedback synthesis (confetti, terminal hire protocol)
  */
 
-class AudioSynthesizer {
+class AudioEngine {
   constructor() {
-    this.ctx = null;
-    this.enabled = false;
-    this.toggleBtn = document.getElementById('sound-toggle');
-    this.init();
+    this.welcomeSongUrl = 'assets/svagatham_song.wav';
+    this.crowCawUrl = 'assets/crow_caw.wav';
+
+    this.welcomeAudio = null;
+    this.crowAudio = null;
+    this.welcomePlayed = false;
+
+    this.initAudioElements();
+    this.initAutoPlayWelcome();
   }
 
-  init() {
-    if (!this.toggleBtn) return;
+  initAudioElements() {
+    // 1. Welcome Song Audio Element
+    this.welcomeAudio = new Audio(this.welcomeSongUrl);
+    this.welcomeAudio.preload = 'auto';
+    this.welcomeAudio.volume = 0.85;
 
-    this.toggleBtn.addEventListener('click', () => {
-      if (!this.ctx) {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        this.ctx = new AudioCtx();
-      }
-      if (this.ctx.state === 'suspended') {
-        this.ctx.resume();
-      }
-
-      this.enabled = !this.enabled;
-      this.updateUI();
-      if (this.enabled) {
-        this.playSuccessTone();
-      }
-    });
-
-    // Subtle hover sounds on interactive elements
-    document.addEventListener('mouseover', (e) => {
-      const target = e.target.closest('a, button:not(#sound-toggle), .filter-chip, .t-cmd-btn, .contact-action-card, .tab-btn');
-      if (target && this.enabled) {
-        this.playHoverTone();
-      }
-    });
-
-    // Click sounds on interactive elements
-    document.addEventListener('click', (e) => {
-      if (!this.enabled || !this.ctx || e.target.closest('#sound-toggle')) return;
-      this.playClickTone();
-    });
+    // 2. Crow Caw Audio Element (preloaded for instant latency-free caw)
+    this.crowAudio = new Audio(this.crowCawUrl);
+    this.crowAudio.preload = 'auto';
+    this.crowAudio.volume = 0.75;
   }
 
-  updateUI() {
-    if (this.enabled) {
-      this.toggleBtn.classList.add('sound-on');
-      const textSpan = this.toggleBtn.querySelector('.sound-text');
-      if (textSpan) textSpan.textContent = 'SFX ON';
+  /**
+   * Play "Svagatham Susvagatham" welcoming theme when opening website
+   */
+  initAutoPlayWelcome() {
+    const playSong = () => {
+      if (this.welcomePlayed) return;
+
+      const promise = this.welcomeAudio.play();
+      if (promise !== undefined) {
+        promise.then(() => {
+          this.welcomePlayed = true;
+          this.renderMusicBadge();
+          this.removeGestureListeners();
+        }).catch(() => {
+          // Autoplay was blocked by browser security policy; will play on first gesture
+        });
+      }
+    };
+
+    const gestureUnlock = () => {
+      if (this.welcomePlayed) return;
+      playSong();
+    };
+
+    this.gestureHandler = gestureUnlock;
+
+    // Try immediately upon script execution & DOM readiness
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      playSong();
     } else {
-      this.toggleBtn.classList.remove('sound-on');
-      const textSpan = this.toggleBtn.querySelector('.sound-text');
-      if (textSpan) textSpan.textContent = 'SFX OFF';
+      window.addEventListener('DOMContentLoaded', playSong);
+    }
+
+    // Attach user gesture listeners to guarantee playback on first click, touch, or scroll
+    window.addEventListener('pointerdown', gestureUnlock, { once: true });
+    window.addEventListener('click', gestureUnlock, { once: true });
+    window.addEventListener('touchstart', gestureUnlock, { once: true });
+    window.addEventListener('keydown', gestureUnlock, { once: true });
+    window.addEventListener('scroll', gestureUnlock, { once: true });
+  }
+
+  removeGestureListeners() {
+    if (!this.gestureHandler) return;
+    window.removeEventListener('pointerdown', this.gestureHandler);
+    window.removeEventListener('click', this.gestureHandler);
+    window.removeEventListener('touchstart', this.gestureHandler);
+    window.removeEventListener('keydown', this.gestureHandler);
+    window.removeEventListener('scroll', this.gestureHandler);
+  }
+
+  /**
+   * Display sleek floating music badge when "Svagatham Susvagatham" plays
+   */
+  renderMusicBadge() {
+    let badge = document.getElementById('welcome-music-pill');
+    if (!badge) {
+      badge = document.createElement('div');
+      badge.id = 'welcome-music-pill';
+      badge.className = 'welcome-music-pill';
+      badge.innerHTML = `
+        <div class="music-pill-icon">
+          <span class="music-clef">🎵</span>
+          <div class="music-wave-bars">
+            <span class="bar b1"></span>
+            <span class="bar b2"></span>
+            <span class="bar b3"></span>
+            <span class="bar b4"></span>
+          </div>
+        </div>
+        <div class="music-pill-text">
+          <span class="music-telugu-title">స్వాగతం సుస్వాగతం</span>
+          <span class="music-sub-title">Svagatham Susvagatham • Now Playing</span>
+        </div>
+        <button class="music-pill-close" title="Mute/Stop Song" aria-label="Stop audio">&times;</button>
+      `;
+
+      document.body.appendChild(badge);
+
+      // Close button
+      const closeBtn = badge.querySelector('.music-pill-close');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (this.welcomeAudio) {
+            this.welcomeAudio.pause();
+          }
+          badge.classList.add('fade-out');
+          setTimeout(() => badge.remove(), 400);
+        });
+      }
+
+      // Smooth fade out when track finishes
+      this.welcomeAudio.addEventListener('ended', () => {
+        badge.classList.add('fade-out');
+        setTimeout(() => badge.remove(), 1200);
+      });
     }
   }
 
-  playHoverTone() {
-    if (!this.enabled || !this.ctx) return;
+  /**
+   * Authentic Crow Cawing sound trigger
+   */
+  playCrowCaw() {
+    if (!this.crowAudio) return;
     try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(800, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(1200, this.ctx.currentTime + 0.03);
-
-      gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.03);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.03);
-    } catch (e) {}
+      // Clone or reset to allow rapid successive caws
+      const cawClone = this.crowAudio.cloneNode();
+      cawClone.volume = 0.7;
+      cawClone.play().catch(() => {});
+    } catch (e) {
+      try {
+        this.crowAudio.currentTime = 0;
+        this.crowAudio.play().catch(() => {});
+      } catch (err) {}
+    }
   }
 
-  playClickTone() {
-    if (!this.enabled || !this.ctx) return;
-    try {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(440, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(220, this.ctx.currentTime + 0.06);
-
-      gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.06);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-
-      osc.start();
-      osc.stop(this.ctx.currentTime + 0.06);
-    } catch (e) {}
-  }
-
+  /**
+   * Celebratory sound for terminal 'sudo hire' and form submit
+   */
   playSuccessTone() {
-    if (!this.enabled || !this.ctx) return;
     try {
-      const freqs = [523.25, 659.25, 783.99, 1046.50]; // C-Major arpeggio
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const freqs = [554.37, 659.25, 830.61, 1108.74]; // Warm celebratory arpeggio
       freqs.forEach((freq, idx) => {
-        const osc = this.ctx.createOscillator();
-        const gain = this.ctx.createGain();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
 
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.06);
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.05);
 
-        const startTime = this.ctx.currentTime + idx * 0.06;
-        gain.gain.setValueAtTime(0.03, startTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.25);
+        const startTime = ctx.currentTime + idx * 0.05;
+        gain.gain.setValueAtTime(0.04, startTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.35);
 
         osc.connect(gain);
-        gain.connect(this.ctx.destination);
+        gain.connect(ctx.destination);
 
         osc.start(startTime);
-        osc.stop(startTime + 0.25);
+        osc.stop(startTime + 0.35);
       });
     } catch (e) {}
   }
 }
 
-window.AudioSynth = new AudioSynthesizer();
+window.AudioSynth = new AudioEngine();

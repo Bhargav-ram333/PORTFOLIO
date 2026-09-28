@@ -149,13 +149,13 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  width: 48px;
-  height: 40px;
+  width: 54px;
+  height: 44px;
   pointer-events: none;
   z-index: 99999;
   will-change: transform;
-  transform-origin: 50% 12%;
-  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 6px rgba(255, 42, 66, 0.35));
+  transform-origin: 50% 16%;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 8px rgba(255, 42, 66, 0.4));
   transition: filter 0.25s ease;
 }
 
@@ -349,57 +349,6 @@ body.cursor-hover .crow-action-pill {
   display: flex;
   align-items: center;
   gap: 14px;
-}
-
-/* Sound Toggle */
-.sound-toggle-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 8px 14px;
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  transition: all 0.2s ease;
-}
-
-.sound-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-main);
-  border-color: var(--border-glow);
-}
-
-.sound-toggle-btn.sound-on {
-  color: var(--accent-cyan);
-  border-color: var(--accent-cyan-glow);
-  background: rgba(0, 242, 254, 0.08);
-}
-
-.equalizer-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 12px;
-}
-
-.eq-bar {
-  width: 2px;
-  height: 4px;
-  background: currentColor;
-  border-radius: 1px;
-}
-
-.sound-on .eq-bar:nth-child(1) { animation: eqAnim 0.7s infinite alternate ease-in-out; }
-.sound-on .eq-bar:nth-child(2) { animation: eqAnim 0.5s infinite alternate ease-in-out 0.2s; }
-.sound-on .eq-bar:nth-child(3) { animation: eqAnim 0.9s infinite alternate ease-in-out 0.4s; }
-
-@keyframes eqAnim {
-  0% { height: 3px; }
-  100% { height: 12px; }
 }
 
 /* Nav Resume CTA */
@@ -627,6 +576,100 @@ body.cursor-hover .crow-action-pill {
   pointer-events: none;
 }
 
+/* ==========================================================================
+   SVAGATHAM (స్వాగతం) GRAND TELUGU WELCOMING HEADER
+   ========================================================================== */
+.svagatham-grand-header {
+  margin-top: 14px;
+  margin-bottom: 24px;
+  text-align: left;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: svagathamGlow 4s ease-in-out infinite alternate;
+}
+
+.svagatham-ornament-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.svagatham-line-accent {
+  width: 28px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent-emerald), transparent);
+}
+
+.svagatham-knot {
+  font-family: 'Gautami', 'Nirmala UI', var(--font-body);
+  font-size: 0.76rem;
+  letter-spacing: 2px;
+  color: var(--accent-emerald);
+  text-transform: uppercase;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 162, 0, 0.4);
+}
+
+.svagatham-telugu-word {
+  font-family: 'Suranna', 'Gautami', 'Nirmala UI', 'Segoe UI', system-ui, sans-serif;
+  font-size: clamp(3.2rem, 7.5vw, 5.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 2px;
+  margin: 0;
+  background: linear-gradient(135deg, #ffffff 0%, #ffd166 30%, #ff6b35 65%, #ff2a42 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 24px rgba(255, 107, 53, 0.45)) drop-shadow(0 0 8px rgba(255, 42, 66, 0.3));
+  position: relative;
+  display: inline-block;
+}
+
+.svagatham-roman-caption {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 4px 14px;
+  background: rgba(14, 16, 24, 0.7);
+  border: 1px solid rgba(255, 162, 0, 0.25);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(10px);
+}
+
+.svagatham-caps {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 3.5px;
+  color: #ffd166;
+}
+
+.svagatham-dot {
+  color: var(--accent-cyan);
+  font-size: 0.75rem;
+}
+
+.svagatham-meaning {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+@keyframes svagathamGlow {
+  0% {
+    filter: drop-shadow(0 0 0px transparent);
+  }
+  100% {
+    filter: drop-shadow(0 0 15px rgba(255, 107, 53, 0.15));
+  }
+}
+
 .hero-content {
   position: relative;
   z-index: 10;
@@ -641,53 +684,6 @@ body.cursor-hover .crow-action-pill {
   flex-wrap: wrap;
 }
 
-/* Telugu Cultural Welcome Badge */
-.badge-telugu-svagatham {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px;
-  background: rgba(255, 42, 66, 0.12);
-  border: 1px solid rgba(255, 42, 66, 0.4);
-  border-radius: var(--radius-full);
-  box-shadow: 0 0 16px rgba(255, 42, 66, 0.2), inset 0 0 10px rgba(255, 107, 53, 0.1);
-  transition: transform 0.3s var(--ease-spring), border-color 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(8px);
-}
-
-.badge-telugu-svagatham:hover {
-  transform: translateY(-2px) scale(1.03);
-  border-color: var(--accent-amber);
-  box-shadow: 0 0 22px rgba(255, 162, 0, 0.35);
-}
-
-.telugu-spark {
-  color: var(--accent-amber);
-  font-size: 0.85rem;
-  animation: pulseGlow 2s infinite;
-}
-
-.telugu-glyph {
-  font-family: 'Noto Sans Telugu', 'Kohinoor Telugu', 'Gautami', 'Nirmala UI', sans-serif;
-  font-weight: 700;
-  font-size: 1.05rem;
-  line-height: 1;
-  color: #ffffff;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 12px rgba(255, 42, 66, 0.6);
-}
-
-.telugu-translit {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--accent-cyan);
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  font-weight: 600;
-  padding-left: 6px;
-  border-left: 1px solid rgba(255, 255, 255, 0.15);
-}
-
 .hero-greeting {
   font-family: var(--font-mono);
   font-size: 0.95rem;
@@ -695,13 +691,6 @@ body.cursor-hover .crow-action-pill {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.hero-greeting .telugu-inline {
-  font-family: 'Noto Sans Telugu', 'Kohinoor Telugu', 'Gautami', 'Nirmala UI', sans-serif;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(255, 42, 66, 0.5);
 }
 
 .hero-title {
@@ -2133,5 +2122,111 @@ body.cursor-hover .crow-action-pill {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   FLOATING WELCOME MUSIC BADGE (SVAGATHAM SUSVAGATHAM)
+   ========================================================================== */
+.welcome-music-pill {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: rgba(10, 12, 18, 0.92);
+  border: 1px solid rgba(255, 162, 0, 0.4);
+  border-radius: var(--radius-full);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(255, 107, 53, 0.25);
+  backdrop-filter: blur(14px);
+  animation: slideUpBadge 0.6s var(--ease-spring);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.welcome-music-pill.fade-out {
+  opacity: 0;
+  transform: translateY(12px) scale(0.95);
+  pointer-events: none;
+}
+
+.music-pill-icon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.music-clef {
+  font-size: 1.15rem;
+}
+
+.music-wave-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.music-wave-bars .bar {
+  width: 2.5px;
+  background: linear-gradient(180deg, #ffd166, #ff2a42);
+  border-radius: 2px;
+}
+
+.music-wave-bars .b1 { animation: waveBar 0.7s infinite alternate ease-in-out; }
+.music-wave-bars .b2 { animation: waveBar 0.5s infinite alternate ease-in-out 0.2s; }
+.music-wave-bars .b3 { animation: waveBar 0.85s infinite alternate ease-in-out 0.4s; }
+.music-wave-bars .b4 { animation: waveBar 0.6s infinite alternate ease-in-out 0.1s; }
+
+@keyframes waveBar {
+  0% { height: 3px; }
+  100% { height: 14px; }
+}
+
+.music-pill-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.music-telugu-title {
+  font-family: 'Suranna', 'Gautami', 'Nirmala UI', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffd166;
+  letter-spacing: 0.5px;
+}
+
+.music-sub-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.music-pill-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.music-pill-close:hover {
+  color: #ff2a42;
+}
+
+@keyframes slideUpBadge {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 
 
