@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chiravuri Satya Siva Bhargav | Machine Learning Engineer & Data Scientist</title>
+  
+  <!-- SEO & Social Meta Tags -->
+  <meta name="description" content="Portfolio of Chiravuri Satya Siva Bhargav — Aspiring Machine Learning Engineer skilled in Python, Scikit-learn, PyTorch, Streamlit, and statistical predictive pipelines. B.Tech in AI & Data Science at Amrita Vishwa Vidyapeetham.">
+  <meta name="keywords" content="Chiravuri Satya Siva Bhargav, Bhargav-ram333, Machine Learning Engineer, Data Science, AI Engineer, Amrita Vishwa Vidyapeetham, Python, PyTorch, Streamlit">
+  <meta name="author" content="Chiravuri Satya Siva Bhargav">
+  <meta name="theme-color" content="#06080d">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Chiravuri Satya Siva Bhargav | Machine Learning Engineer">
+  <meta property="og:description" content="Explore end-to-end ML pipelines, interactive data dashboards, and AI research projects.">
+  <meta property="og:image" content="assets/inscript_ai.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- External Libraries (Three.js & Canvas Confetti) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SITE HEADER / FLOATING GLASS NAVBAR
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-brand" aria-label="Bhargav Home">
+        <div class="brand-symbol">CSB</div>
+        <div class="brand-text">
+          <span class="brand-name">Bhargav</span>
+          <span class="brand-role">AI & ML Engineer</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#timeline" class="nav-link">Timeline</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#achievements" class="nav-link">Awards</a></li>
+          <li><a href="#terminal" class="nav-link">Terminal</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- SFX Synthesizer Toggle -->
+        <button id="sound-toggle" class="sound-toggle-btn" title="Toggle Futuristic Audio Effects">
+          <div class="equalizer-bars">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </div>
+          <span class="sound-text">SFX OFF</span>
+        </button>
+
+        <!-- Resume Action -->
+        <a href="assets/resume.pdf" target="_blank" class="btn-nav-resume btn-view-resume">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Resume
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-toggle" aria-label="Toggle Navigation Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         HERO SECTION (3D THREE.JS NEURAL CONSTELLATION)
+         ========================================================================== -->
+    <section id="hero" class="hero-section">
+      <!-- 3D Interactive WebGL Canvas -->
+      <canvas id="three-hero-canvas"></canvas>
+      <div class="hero-overlay-grid"></div>
+
+      <div class="container" style="position: relative; z-index: 10;">
+        <div class="hero-content">
+          <div class="hero-eyebrow-wrapper">
+            <div class="badge-status">
+              <span class="pulse-dot"></span>
+              Available for Internships & AI Engineering Roles
+            </div>
+            <span class="hero-greeting">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              Hello World, I'm
+            </span>
+          </div>
+
+          <h1 class="hero-title">
+            Chiravuri Satya Siva <br>
+            <span class="name-highlight">Bhargav</span>
+          </h1>
+
+          <div class="hero-typing-container">
+            <span class="typing-prefix">Specializing in</span>
+            <span id="typing-text" class="typing-text">Machine Learning Engineer</span>
+            <span class="typing-cursor"></span>
+          </div>
+
+          <p class="hero-bio">
+            B.Tech in Artificial Intelligence & Data Science at <strong>Amrita Vishwa Vidyapeetham</strong>. 
+            Passionate about architecting predictive machine learning pipelines, scalable deep learning systems, 
+            interactive intelligence dashboards, and practical business-grade AI solutions.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#projects" class="btn btn-primary" data-cursor="explore">
+              <span>Explore My Work</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            
+            <a href="#terminal" class="btn btn-secondary" data-cursor="hover">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              <span>Launch AI Console</span>
+            </a>
+
+            <a href="assets/resume.pdf" download="Bhargav_Resume.pdf" class="btn btn-outline-cyan" data-cursor="hover">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download CV</span>
+            </a>
+          </div>
+
+          <!-- Hero Metrics Strip -->
+          <div class="hero-stats-strip">
+            <div class="stat-item">
+              <div class="stat-value">8<span class="stat-accent">+</span></div>
+              <div class="stat-label">GitHub Repositories</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">95.5<span class="stat-accent">%</span></div>
+              <div class="stat-label">12th Board Score</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">5<span class="stat-accent">+</span></div>
+              <div class="stat-label">ML & Analytics Apps</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">100<span class="stat-accent">%</span></div>
+              <div class="stat-label">LOR Recommendation</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Holographic Floating Badge Element -->
+        <div class="hero-floating-badge tilt-card">
+          <div class="floating-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M12 6v6l4 2"></path></svg>
+          </div>
+          <div class="floating-badge-text">
+            <h4>Predictive ML Engine</h4>
+            <p>0.941 ROC-AUC Classifier</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ABOUT SECTION
+         ========================================================================== -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+            Background & Mindset
+          </div>
+          <h2 class="section-title">Bridging <span class="text-gradient">Algorithms</span> & Practical Impact</h2>
+          <p class="section-desc">Empowering data-driven decisions through mathematical rigor, modern machine learning architectures, and scalable software pipelines.</p>
+        </div>
+
+        <div class="about-grid">
+          <!-- 3D Tilt Profile Card -->
+          <div class="profile-card-3d">
+            <div class="profile-avatar-wrap">
+              <div class="avatar-ring-glow"></div>
+              <img src="assets/avatar.jpg" alt="Chiravuri Satya Siva Bhargav" class="profile-avatar-img">
+            </div>
+
+            <div class="profile-card-body">
+              <h3 class="profile-card-name">Chiravuri Satya Siva Bhargav</h3>
+              <p class="profile-card-tag">B.Tech AI & Data Science Candidate</p>
+
+              <ul class="profile-info-list">
+                <li class="profile-info-item">
+                  <span class="info-label">University</span>
+                  <span class="info-val">Amrita Vishwa Vidyapeetham</span>
+                </li>
+                <li class="profile-info-item">
+                  <span class="info-label">Current CGPA</span>
+                  <span class="info-val" style="color:var(--accent-emerald);">7.0 / 10.0</span>
+                </li>
+                <li class="profile-info-item">
+                  <span class="info-label">Location</span>
+                  <span class="info-val">India (Open to Global)</span>
+                </li>
+                <li class="profile-info-item">
+                  <span class="info-label">Specialization</span>
+                  <span class="info-val" style="color:var(--accent-cyan);">Machine Learning & EDA</span>
+                </li>
+              </ul>
+
+              <div class="profile-card-actions">
+                <button class="btn btn-sm btn-primary btn-view-resume">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  View Resume
+                </button>
+                <a href="https://github.com/Bhargav-ram333" target="_blank" class="btn btn-sm btn-secondary">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Narrative and Engineering Pillars -->
+          <div class="about-narrative">
+            <p class="about-intro-lead">
+              "I believe that the true power of artificial intelligence lies not in raw model complexity, but in 
+              <span>solving real-world business bottlenecks</span> with interpretable, robust, and deployable systems."
+            </p>
+
+            <p>
+              Currently pursuing a Bachelor of Technology in <strong>Artificial Intelligence and Data Science (2024–2028)</strong> 
+              at Amrita Vishwa Vidyapeetham. My journey blends strong statistical foundations with hands-on 
+              industry engineering—ranging from building end-to-end Python analytics pipelines during my internship at 
+              <strong>Future Interns</strong> (earning a direct Letter of Recommendation) to developing interactive computer vision 
+              and generative web applications like <strong>InScript AI</strong>.
+            </p>
+
+            <div class="about-features-grid">
+              <div class="about-feature-box">
+                <div class="feature-box-header">
+                  <span class="feature-icon-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                  </span>
+                  <h4>Predictive Pipelines</h4>
+                </div>
+                <p>Formulating robust classification, regression, and clustering workflows with Scikit-learn, XGBoost, and PyTorch.</p>
+              </div>
+
+              <div class="about-feature-box">
+                <div class="feature-box-header">
+                  <span class="feature-icon-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                  </span>
+                  <h4>Interactive Dashboards</h4>
+                </div>
+                <p>Translating complex multi-dimensional datasets into intuitive executive dashboards using Streamlit and Plotly.</p>
+              </div>
+
+              <div class="about-feature-box">
+                <div class="feature-box-header">
+                  <span class="feature-icon-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                  </span>
+                  <h4>Big Data Engineering</h4>
+                </div>
+                <p>Knowledge of Apache Spark, PySpark, Kafka, Hadoop, and PostgreSQL for large scale streaming and data warehouses.</p>
+              </div>
+
+              <div class="about-feature-box">
+                <div class="feature-box-header">
+                  <span class="feature-icon-wrapper">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                  </span>
+                  <h4>Continuous Curiosity</h4>
+                </div>
+                <p>Trained in RLHF, LLMs in Python, and Deep Learning via DataCamp, MathWorks, and high-speed hackathons.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TIMELINE (EXPERIENCE & EDUCATION)
+         ========================================================================== -->
+    <section id="timeline" class="timeline-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Career Journey
+          </div>
+          <h2 class="section-title">Experience & <span class="text-gradient">Academics</span></h2>
+          <p class="section-desc">Consistent track record of technical execution, rigorous learning, and academic distinction.</p>
+        </div>
+
+        <div class="timeline-tabs-wrap">
+          <button class="tab-btn active" data-timeline="experience">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            Work & Internships
+          </button>
+          <button class="tab-btn" data-timeline="education">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+            Education History
+          </button>
+        </div>
+
+        <!-- Experience Timeline -->
+        <div id="timeline-experience" class="timeline-tree">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header-row">
+                <h3 class="timeline-role-title">Data Science and Analytics Intern</h3>
+                <span class="timeline-period">2026</span>
+              </div>
+              <div class="timeline-org">
+                Future Interns
+                <span class="timeline-org-score">Letter of Recommendation Awarded</span>
+              </div>
+              <ul class="timeline-bullet-list">
+                <li>Performed comprehensive data cleaning, feature engineering, exploratory data analysis (EDA), and statistical modeling on high-dimensional datasets.</li>
+                <li>Engineered end-to-end Python analytics workflows spanning data ingestion, preprocessing, visualization, and cloud deployment.</li>
+                <li>Awarded an official Letter of Recommendation highlighting professionalism, strong technical execution, and timely delivery of mission-critical dashboards.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header-row">
+                <h3 class="timeline-role-title">Data Science with Python Intern</h3>
+                <span class="timeline-period">Jun 2026</span>
+              </div>
+              <div class="timeline-org">SmartED Innovations</div>
+              <ul class="timeline-bullet-list">
+                <li>Developed predictive data science models using NumPy, Pandas, Matplotlib, and Scikit-learn algorithms.</li>
+                <li>Constructed automated data validation scripts and evaluated classification metrics across varied business scenarios.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header-row">
+                <h3 class="timeline-role-title">Hackathon Competitor — Team Thunder Bolts</h3>
+                <span class="timeline-period">Jul 2026</span>
+              </div>
+              <div class="timeline-org">Nitro-Stack Hackathon</div>
+              <ul class="timeline-bullet-list">
+                <li>Collaborated within a rapid-pace engineering squad to build and pitch full-stack data-driven solutions under tight sprint deadlines.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Timeline -->
+        <div id="timeline-education" class="timeline-tree" style="display:none;">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header-row">
+                <h3 class="timeline-role-title">B.Tech in Artificial Intelligence & Data Science</h3>
+                <span class="timeline-period">2024 – 2028</span>
+              </div>
+              <div class="timeline-org">
+                Amrita Vishwa Vidyapeetham
+                <span class="timeline-org-score">Current CGPA: 7.0 / 10</span>
+              </div>
+              <ul class="timeline-bullet-list">
+                <li>Rigorous curriculum spanning Machine Learning, Deep Neural Networks, Linear Algebra, Probability & Statistics, Data Structures, and Cloud Computing.</li>
+                <li>Active involvement in open-source AI implementations, data science research groups, and self-directed project development.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header-row">
+                <h3 class="timeline-role-title">APBIE (12th Board - Senior Secondary)</h3>
+                <span class="timeline-period">2022 – 2024</span>
+              </div>
+              <div class="timeline-org">
+                Tirumala Junior Kalasala
+                <span class="timeline-org-score">Grade: 95.5% (Distinction)</span>
+              </div>
+              <ul class="timeline-bullet-list">
+                <li>Secured an outstanding 95.5% aggregate score with core focus on Mathematics, Physics, and Analytical Logic.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-card">
+              <div class="timeline-header-row">
+                <h3 class="timeline-role-title">Board of Secondary Education (10th Standard)</h3>
+                <span class="timeline-period">2021 – 2022</span>
+              </div>
+              <div class="timeline-org">
+                Tirumala EM High School
+                <span class="timeline-org-score">Grade: 94.6% (Top Tier)</span>
+              </div>
+              <ul class="timeline-bullet-list">
+                <li>Graduated with top academic standing of 94.6%, demonstrating consistent foundational excellence.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         FEATURED PROJECTS (3D TILT INTERACTIVE SHOWCASE)
+         ========================================================================== -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+            Featured Portfolio
+          </div>
+          <h2 class="section-title">Production & Research <span class="text-gradient">Projects</span></h2>
+          <p class="section-desc">Explore practical artificial intelligence architectures, machine learning models, and dynamic analytical dashboards built from scratch.</p>
+        </div>
+
+        <!-- Filter Chips -->
+        <div class="project-filters">
+          <button class="filter-chip active" data-filter="all">All Systems (4)</button>
+          <button class="filter-chip" data-filter="ml">Machine Learning & DL</button>
+          <button class="filter-chip" data-filter="analytics">Data Analytics & Dashboards</button>
+          <button class="filter-chip" data-filter="web">Web & Canvas AI</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+          
+          <!-- Project 1: InScript AI -->
+          <div class="project-card-tilt" data-category="web">
+            <div class="project-card-glare"></div>
+            <div class="project-image-box">
+              <img src="assets/inscript_ai.jpg" alt="InScript AI Handwriting Platform" class="project-preview-img">
+              <div class="project-badge-overlay">
+                <span class="project-category-badge">Canvas API / AI Script</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-title">
+                <span>InScript AI</span>
+                <span style="font-size:0.85rem; color:var(--accent-cyan); font-family:var(--font-mono);">May 2026</span>
+              </div>
+              <p class="project-desc">
+                An intelligent handwriting generation platform with real-time dynamic preview, Canvas API stroke rendering, ruled-paper synthesis, and multi-page vector jsPDF export.
+              </p>
+              
+              <div class="project-metrics-box">
+                <div class="metric-item">
+                  <span class="metric-label">Engine:</span>
+                  <span class="metric-val">HTML5 Canvas</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Export:</span>
+                  <span class="metric-val">Vector jsPDF</span>
+                </div>
+              </div>
+
+              <div class="project-tech-tags">
+                <span class="badge-tag">JavaScript</span>
+                <span class="badge-tag">Canvas API</span>
+                <span class="badge-tag">jsPDF</span>
+                <span class="badge-tag">CSS3</span>
+                <span class="badge-tag">Performance Opt</span>
+              </div>
+
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary" data-project-trigger="inscript">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Architecture
+                </button>
+                <a href="https://github.com/Bhargav-ram333/InScript-AI" target="_blank" class="btn btn-sm btn-secondary" title="View Source on GitHub">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: Business Sales Performance Analytics Dashboard -->
+          <div class="project-card-tilt" data-category="analytics">
+            <div class="project-card-glare"></div>
+            <div class="project-image-box">
+              <img src="assets/sales_dashboard.jpg" alt="Business Sales Analytics Dashboard" class="project-preview-img">
+              <div class="project-badge-overlay">
+                <span class="project-category-badge">Analytics / Streamlit</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-title">
+                <span>Business Sales Analytics</span>
+                <span style="font-size:0.85rem; color:var(--accent-cyan); font-family:var(--font-mono);">Jul 2026</span>
+              </div>
+              <p class="project-desc">
+                Interactive Streamlit business intelligence dashboard tracking commercial sales, profit margin fluctuations, regional heatmaps, and key performance indicators.
+              </p>
+
+              <div class="project-metrics-box">
+                <div class="metric-item">
+                  <span class="metric-label">Pipeline:</span>
+                  <span class="metric-val">Pandas & NumPy</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Framework:</span>
+                  <span class="metric-val">Streamlit</span>
+                </div>
+              </div>
+
+              <div class="project-tech-tags">
+                <span class="badge-tag">Python</span>
+                <span class="badge-tag">Streamlit</span>
+                <span class="badge-tag">Pandas</span>
+                <span class="badge-tag">Matplotlib</span>
+                <span class="badge-tag">Seaborn</span>
+                <span class="badge-tag">EDA</span>
+              </div>
+
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary" data-project-trigger="sales">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Architecture
+                </button>
+                <a href="https://github.com/Bhargav-ram333/Buiseness_analysis" target="_blank" class="btn btn-sm btn-secondary" title="View Source on GitHub">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Marketing Funnel Analysis & Customer Segmentation -->
+          <div class="project-card-tilt" data-category="ml">
+            <div class="project-card-glare"></div>
+            <div class="project-image-box">
+              <img src="assets/customer_segmentation.jpg" alt="Marketing Funnel & Customer Segmentation" class="project-preview-img">
+              <div class="project-badge-overlay">
+                <span class="project-category-badge">ML Clustering / Plotly</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-title">
+                <span>Customer Segmentation & Funnel</span>
+                <span style="font-size:0.85rem; color:var(--accent-cyan); font-family:var(--font-mono);">Jul 2026</span>
+              </div>
+              <p class="project-desc">
+                Streamlit & Plotly interactive intelligence engine analyzing marketing funnel conversion drop-offs with K-Means unsupervised clustering on UCI Bank Marketing data.
+              </p>
+
+              <div class="project-metrics-box">
+                <div class="metric-item">
+                  <span class="metric-label">Algorithm:</span>
+                  <span class="metric-val">K-Means & PCA</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Visualizer:</span>
+                  <span class="metric-val">Plotly 3D</span>
+                </div>
+              </div>
+
+              <div class="project-tech-tags">
+                <span class="badge-tag">Scikit-learn</span>
+                <span class="badge-tag">Plotly</span>
+                <span class="badge-tag">Streamlit</span>
+                <span class="badge-tag">Clustering</span>
+                <span class="badge-tag">PCA</span>
+                <span class="badge-tag">UCI Dataset</span>
+              </div>
+
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary" data-project-trigger="customer">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Architecture
+                </button>
+                <a href="https://github.com/Bhargav-ram333/customer_segmentation-analysis" target="_blank" class="btn btn-sm btn-secondary" title="View Source on GitHub">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: Telco Customer Churn Prediction Engine -->
+          <div class="project-card-tilt" data-category="ml">
+            <div class="project-card-glare"></div>
+            <div class="project-image-box">
+              <img src="assets/churn_ml.jpg" alt="Telco Churn ML Engine" class="project-preview-img">
+              <div class="project-badge-overlay">
+                <span class="project-category-badge">Predictive ML / SHAP</span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-title">
+                <span>Telco Churn Prediction Engine</span>
+                <span style="font-size:0.85rem; color:var(--accent-cyan); font-family:var(--font-mono);">ML Pipeline</span>
+              </div>
+              <p class="project-desc">
+                Machine learning classification architecture detecting at-risk customer churn. Features SMOTE class balancing, hyperparameter tuning, and high 0.941 ROC-AUC score.
+              </p>
+
+              <div class="project-metrics-box">
+                <div class="metric-item">
+                  <span class="metric-label">AUC:</span>
+                  <span class="metric-val">0.941</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Accuracy:</span>
+                  <span class="metric-val">93.4%</span>
+                </div>
+              </div>
+
+              <div class="project-tech-tags">
+                <span class="badge-tag">XGBoost</span>
+                <span class="badge-tag">Scikit-learn</span>
+                <span class="badge-tag">SMOTE</span>
+                <span class="badge-tag">SHAP Values</span>
+                <span class="badge-tag">ROC-AUC</span>
+              </div>
+
+              <div class="project-actions">
+                <button class="btn btn-sm btn-primary" data-project-trigger="churn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  Architecture
+                </button>
+                <a href="https://github.com/Bhargav-ram333/Telco_Customer_Churn_Analysis" target="_blank" class="btn btn-sm btn-secondary" title="View Source on GitHub">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         TECHNICAL SKILLS & COMPETENCIES MATRIX
+         ========================================================================== -->
+    <section id="skills" class="skills-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Technical Arsenal
+          </div>
+          <h2 class="section-title">Skills & <span class="text-gradient">Competencies</span></h2>
+          <p class="section-desc">Extensive toolkit across Machine Learning, Data Analytics, Data Engineering, and Full-Stack Web Development.</p>
+        </div>
+
+        <div class="skills-wrapper">
+          
+          <!-- Category 1: Machine Learning & Deep Learning -->
+          <div class="skill-category-card">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+              </div>
+              <h3 class="skill-cat-title">Machine Learning & DL</h3>
+            </div>
+            <div class="skill-items-list">
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Scikit-learn & XGBoost</span>
+                  <span class="skill-percent">95%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="95%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">TensorFlow & Keras</span>
+                  <span class="skill-percent">88%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="88%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">PyTorch & Deep Learning</span>
+                  <span class="skill-percent">85%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="85%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">RLHF & LLM Architectures</span>
+                  <span class="skill-percent">80%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="80%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Data Analytics & Visualization -->
+          <div class="skill-category-card">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon" style="color:var(--accent-purple); border-color:var(--accent-purple-glow); background:rgba(157,78,221,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              </div>
+              <h3 class="skill-cat-title">Data & Visualization</h3>
+            </div>
+            <div class="skill-items-list">
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Pandas & NumPy</span>
+                  <span class="skill-percent">95%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="95%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Streamlit Dashboards</span>
+                  <span class="skill-percent">92%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="92%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Plotly Interactive</span>
+                  <span class="skill-percent">90%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="90%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Matplotlib & Seaborn</span>
+                  <span class="skill-percent">92%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="92%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 3: Programming & Data Engineering -->
+          <div class="skill-category-card">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon" style="color:var(--accent-emerald); border-color:var(--accent-emerald-glow); background:rgba(0,245,160,0.1);">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              </div>
+              <h3 class="skill-cat-title">Programming & Engineering</h3>
+            </div>
+            <div class="skill-items-list">
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Python (Advanced)</span>
+                  <span class="skill-percent">95%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="95%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">SQL & PostgreSQL</span>
+                  <span class="skill-percent">88%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="88%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">Apache Spark & PySpark</span>
+                  <span class="skill-percent">80%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="80%"></div>
+                </div>
+              </div>
+              <div class="skill-meter-row">
+                <div class="skill-meter-meta">
+                  <span class="skill-name">JavaScript & REST APIs</span>
+                  <span class="skill-percent">86%</span>
+                </div>
+                <div class="skill-track">
+                  <div class="skill-fill" data-progress="86%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Competencies Tag Cloud -->
+        <div style="margin-top: 36px; padding: 24px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-card); text-align: center;">
+          <h4 style="font-size: 0.95rem; font-family: var(--font-mono); color: var(--accent-cyan); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px;">Core Methodologies & Workflows</h4>
+          <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+            <span class="badge-tag">Exploratory Data Analysis (EDA)</span>
+            <span class="badge-tag">Feature Engineering</span>
+            <span class="badge-tag">Classification & Regression</span>
+            <span class="badge-tag">K-Means & Hierarchical Clustering</span>
+            <span class="badge-tag">Model Cross-Validation</span>
+            <span class="badge-tag">Hyperparameter Grid/Random Search</span>
+            <span class="badge-tag">Kafka Streaming</span>
+            <span class="badge-tag">Hadoop Ecosystem</span>
+            <span class="badge-tag">Flask & Django</span>
+            <span class="badge-tag">MATLAB Linear Algebra</span>
+            <span class="badge-tag">Git & GitHub Actions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         ACHIEVEMENTS & CERTIFICATIONS
+         ========================================================================== -->
+    <section id="achievements" class="achievements-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+            Credentials & Honors
+          </div>
+          <h2 class="section-title">Certifications & <span class="text-gradient">Recognition</span></h2>
+          <p class="section-desc">Continuous professional upskilling from verified industry platforms and competitive hackathons.</p>
+        </div>
+
+        <div class="achievements-grid">
+          
+          <!-- Card 1: DataCamp LLM & RLHF -->
+          <div class="achievement-card">
+            <div>
+              <div class="achievement-top">
+                <div class="achievement-badge-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                </div>
+                <span class="achievement-date">Feb – Mar 2026</span>
+              </div>
+              <h3 class="achievement-title">RLHF, LLMs & Deep Learning with PyTorch</h3>
+              <div class="achievement-issuer">DataCamp Certified</div>
+              <p class="achievement-detail">Completed advanced curriculum covering Reinforcement Learning from Human Feedback (RLHF), LLM prompt pipelines, and PyTorch deep neural networks.</p>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="badge-tag" style="color:var(--accent-cyan); border-color:var(--border-glow);">Verified Credential</span>
+            </div>
+          </div>
+
+          <!-- Card 2: MathWorks Training -->
+          <div class="achievement-card">
+            <div>
+              <div class="achievement-top">
+                <div class="achievement-badge-icon" style="color:var(--accent-purple); border-color:var(--accent-purple-glow); background:rgba(157,78,221,0.08);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>
+                </div>
+                <span class="achievement-date">Apr 2025</span>
+              </div>
+              <h3 class="achievement-title">MATLAB Onramp & Linear Algebra</h3>
+              <div class="achievement-issuer">MathWorks Training Services</div>
+              <p class="achievement-detail">Mastered matrix vectorization, eigenvalue decompositions, computational linear algebra, and algorithmic numerical computing in MATLAB.</p>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="badge-tag" style="color:var(--accent-purple); border-color:var(--accent-purple-glow);">Verified Credential</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Nitro-Stack Hackathon -->
+          <div class="achievement-card">
+            <div>
+              <div class="achievement-top">
+                <div class="achievement-badge-icon" style="color:var(--accent-emerald); border-color:var(--accent-emerald-glow); background:rgba(0,245,160,0.08);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+                <span class="achievement-date">Jul 2026</span>
+              </div>
+              <h3 class="achievement-title">Nitro-Stack Hackathon — Team Thunder Bolts</h3>
+              <div class="achievement-issuer">Nitro-Stack Competitive Engineering</div>
+              <p class="achievement-detail">Built high-performance full stack software solution under intensive 36-hour sprint constraints with collaborative team prototyping.</p>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="badge-tag" style="color:var(--accent-emerald); border-color:var(--accent-emerald-glow);">Hackathon Certificate</span>
+            </div>
+          </div>
+
+          <!-- Card 4: SmartED Innovations -->
+          <div class="achievement-card">
+            <div>
+              <div class="achievement-top">
+                <div class="achievement-badge-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                </div>
+                <span class="achievement-date">Jun 2026</span>
+              </div>
+              <h3 class="achievement-title">Data Science with Python Specialization</h3>
+              <div class="achievement-issuer">SmartED Innovations</div>
+              <p class="achievement-detail">Practical coursework on exploratory analysis, data transformation pipelines, model metrics evaluation, and predictive workflow automation.</p>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="badge-tag">Course Completion</span>
+            </div>
+          </div>
+
+          <!-- Card 5: Future Interns Recommendation -->
+          <div class="achievement-card">
+            <div>
+              <div class="achievement-top">
+                <div class="achievement-badge-icon" style="color:var(--accent-amber); border-color:rgba(255,183,3,0.3); background:rgba(255,183,3,0.08);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                </div>
+                <span class="achievement-date">2026</span>
+              </div>
+              <h3 class="achievement-title">Letter of Recommendation (LOR)</h3>
+              <div class="achievement-issuer">Future Interns Leadership</div>
+              <p class="achievement-detail">Commended for stellar performance, algorithmic depth, and production delivery of data science workflows and analytics dashboards.</p>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="badge-tag" style="color:var(--accent-amber); border-color:rgba(255,183,3,0.3);">Distinction</span>
+            </div>
+          </div>
+
+          <!-- Card 6: Premiere Pro -->
+          <div class="achievement-card">
+            <div>
+              <div class="achievement-top">
+                <div class="achievement-badge-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                </div>
+                <span class="achievement-date">Dec 2025</span>
+              </div>
+              <h3 class="achievement-title">Premiere Pro Basic to Advanced</h3>
+              <div class="achievement-issuer">Plan At B</div>
+              <p class="achievement-detail">Mastery over video post-production, timeline pacing, audiovisual motion synchronization, and creative storytelling.</p>
+            </div>
+            <div style="margin-top:16px;">
+              <span class="badge-tag">Creative Media</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         INTERACTIVE AI CLI TERMINAL
+         ========================================================================== -->
+    <section id="terminal" class="terminal-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+            Interactive CLI
+          </div>
+          <h2 class="section-title">Query My <span class="text-gradient">Terminal</span></h2>
+          <p class="section-desc">Type commands directly or click chips below to inspect skills, projects, contact points, or trigger the sudo hire protocol.</p>
+        </div>
+
+        <div class="terminal-window">
+          <div class="terminal-titlebar">
+            <div class="terminal-dots">
+              <span class="t-dot red"></span>
+              <span class="t-dot yellow"></span>
+              <span class="t-dot green"></span>
+            </div>
+            <div class="terminal-title-text">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+              bhargav@ai-core: ~ (zsh)
+            </div>
+            <div style="width: 40px;"></div>
+          </div>
+
+          <div class="terminal-chips">
+            <span class="terminal-chip-hint">Quick commands:</span>
+            <button class="t-cmd-btn" data-cmd="help">help</button>
+            <button class="t-cmd-btn" data-cmd="bio">bio</button>
+            <button class="t-cmd-btn" data-cmd="skills">skills</button>
+            <button class="t-cmd-btn" data-cmd="projects">projects</button>
+            <button class="t-cmd-btn" data-cmd="education">education</button>
+            <button class="t-cmd-btn" data-cmd="experience">experience</button>
+            <button class="t-cmd-btn" data-cmd="achievements">achievements</button>
+            <button class="t-cmd-btn" data-cmd="contact">contact</button>
+            <button class="t-cmd-btn" data-cmd="sudo hire" style="color:var(--accent-emerald); border-color:var(--accent-emerald-glow);">sudo hire</button>
+            <button class="t-cmd-btn" data-cmd="clear">clear</button>
+          </div>
+
+          <div id="terminal-body" class="terminal-body">
+            <div class="terminal-output-block">
+              <div style="color:var(--accent-cyan); font-weight:700; margin-bottom:6px;">
+                ⚡ Bhargav-AI CLI Kernel v2.6.4 [Machine Learning & Systems Architecture]
+              </div>
+              <div style="color:var(--text-muted); margin-bottom:10px;">
+                Type <span style="color:#00f2fe;">'help'</span> to see available commands or click any quick command chip above.
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 12px 20px; background:#070b12; border-top:1px solid rgba(255,255,255,0.06);">
+            <div class="terminal-input-row">
+              <span style="color:var(--accent-emerald); font-family:var(--font-mono); font-weight:700;">guest@bhargav-ai</span>
+              <span style="color:var(--accent-cyan); font-family:var(--font-mono);">:~$</span>
+              <input type="text" id="terminal-input" class="terminal-input" placeholder="type a command e.g. 'skills', 'sudo hire'..." autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         CONTACT & CONNECT SECTION
+         ========================================================================== -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-eyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            Initialize Handshake
+          </div>
+          <h2 class="section-title">Let's Build <span class="text-gradient">Together</span></h2>
+          <p class="section-desc">Open for Machine Learning Engineer internships, AI research partnerships, and data-driven full-time opportunities.</p>
+        </div>
+
+        <div class="contact-grid">
+          
+          <!-- Direct Quick Action Cards -->
+          <div class="contact-info-cards">
+            
+            <!-- Email -->
+            <div class="contact-action-card" data-copy="sivabhargav2006@gmail.com" title="Click to copy email address">
+              <div class="contact-card-left">
+                <div class="contact-icon-pill">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </div>
+                <div class="contact-text-wrap">
+                  <h4>Direct Email</h4>
+                  <p>sivabhargav2006@gmail.com</p>
+                </div>
+              </div>
+              <span class="contact-copy-hint">Click to Copy</span>
+            </div>
+
+            <!-- Phone -->
+            <div class="contact-action-card" data-copy="+919989712314" title="Click to copy phone number">
+              <div class="contact-card-left">
+                <div class="contact-icon-pill">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div class="contact-text-wrap">
+                  <h4>Mobile & WhatsApp</h4>
+                  <p>(+91) 9989712314</p>
+                </div>
+              </div>
+              <span class="contact-copy-hint">Click to Copy</span>
+            </div>
+
+            <!-- GitHub -->
+            <a href="https://github.com/Bhargav-ram333" target="_blank" class="contact-action-card">
+              <div class="contact-card-left">
+                <div class="contact-icon-pill">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                </div>
+                <div class="contact-text-wrap">
+                  <h4>GitHub Profile</h4>
+                  <p>github.com/Bhargav-ram333</p>
+                </div>
+              </div>
+              <span class="contact-copy-hint">Visit ↗</span>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com/in/satya-siva-bhargav" target="_blank" class="contact-action-card">
+              <div class="contact-card-left">
+                <div class="contact-icon-pill">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                </div>
+                <div class="contact-text-wrap">
+                  <h4>LinkedIn Connection</h4>
+                  <p>linkedin.com/in/satya-siva-bhargav</p>
+                </div>
+              </div>
+              <span class="contact-copy-hint">Connect ↗</span>
+            </a>
+
+          </div>
+
+          <!-- Contact Message Form -->
+          <div class="contact-form-card">
+            <form id="contact-form" class="contact-form">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">Your Full Name</label>
+                <input type="text" id="contact-name" name="name" class="form-input" placeholder="e.g. Alex Rivera" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">Email Address</label>
+                <input type="email" id="contact-email" name="email" class="form-input" placeholder="e.g. alex@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Project or Inquiry Details</label>
+                <textarea id="contact-message" name="message" class="form-textarea" placeholder="Describe the role, project, or collaboration..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;" data-cursor="hover">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                <span>Transmit Message</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       SITE FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        Designed & Engineered by <strong>Chiravuri Satya Siva Bhargav</strong> © 2026.
+      </div>
+      <div class="footer-social-links">
+        <a href="https://github.com/Bhargav-ram333" target="_blank" class="social-circle-link" title="GitHub" aria-label="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="https://linkedin.com/in/satya-siva-bhargav" target="_blank" class="social-circle-link" title="LinkedIn" aria-label="LinkedIn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="mailto:sivabhargav2006@gmail.com" class="social-circle-link" title="Email" aria-label="Email">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       PROJECT DETAILS MODAL
+       ========================================================================== -->
+  <div id="project-modal-backdrop" class="modal-backdrop">
+    <div class="modal-container">
+      <button id="project-modal-close" class="modal-close-btn" aria-label="Close Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div id="project-modal-content" class="modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       IN-BROWSER RESUME VIEWER MODAL
+       ========================================================================== -->
+  <div id="resume-modal-backdrop" class="modal-backdrop">
+    <div class="modal-container" style="max-width: 900px; height: 85vh;">
+      <button id="resume-modal-close" class="modal-close-btn" aria-label="Close Resume Modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      <div class="modal-body" style="height: 100%; display: flex; flex-direction: column;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+          <div>
+            <h3 style="font-size: 1.3rem;">Official Resume — Chiravuri Satya Siva Bhargav</h3>
+            <p style="font-size: 0.85rem; color: var(--accent-cyan); font-family: var(--font-mono);">B.Tech AI & Data Science Candidate</p>
+          </div>
+          <a href="assets/resume.pdf" download="Bhargav_Resume.pdf" class="btn btn-sm btn-primary" style="margin-right: 48px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Download PDF
+          </a>
+        </div>
+        <div style="flex-grow: 1; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-glow); background: #000;">
+          <iframe src="assets/resume.pdf" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/three-hero.js"></script>
+  <script src="js/cursor.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
