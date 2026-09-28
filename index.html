@@ -31,7 +31,10 @@
 </head>
 <body>
   <!-- Direct Autoplay Welcome Audio -->
-  <audio id="welcome-audio" src="assets/svagatham_song.wav" preload="auto" autoplay playsinline></audio>
+  <audio id="welcome-audio" preload="auto" autoplay playsinline>
+    <source src="assets/svagatham_song.m4a" type="audio/mp4">
+    <source src="assets/svagatham_song.wav" type="audio/wav">
+  </audio>
   <script>
     (function() {
       try {

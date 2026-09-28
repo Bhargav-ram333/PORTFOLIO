@@ -4,102 +4,232 @@
  *
  * Features:
  *  - Direct playback of "Swagatham Suswagatham" (స్వాగతం సుస్వాగతం) on site open
- *  - Ultra-responsive multi-event audio unlocking (mousemove, mouseenter, scroll, touch, click)
- *  - Authentic Indian Crow caw playback on cursor click
+ *  - Dual-pipeline audio engine: Web Audio API (zero-latency in-memory decoding) + HTML5 Audio fallback
+ *  - Universal browser compatibility (Safari, Chrome, Firefox, Edge, iOS, Android)
+ *  - Ultra-responsive multi-event audio unlocking (pointerdown, click, touchstart, keydown, scroll, mousemove)
+ *  - Pristine, studio-isolated Indian Crow double-caw with zero background noise
  */
 
 class AudioEngine {
   constructor() {
-    this.welcomeSongUrl = 'assets/svagatham_song.wav';
-    this.crowCawUrl = 'assets/crow_caw.wav';
+    this.welcomeM4aUrl = 'assets/svagatham_song.m4a';
+    this.welcomeWavUrl = 'assets/svagatham_song.wav';
+    this.crowM4aUrl = 'assets/crow_caw.m4a';
+    this.crowWavUrl = 'assets/crow_caw.wav';
 
     this.welcomeAudio = null;
     this.crowAudio = null;
     this.welcomePlayed = false;
+    this.lastCawTime = 0;
 
-    this.initAudioElements();
+    // Web Audio API Context & Buffers
+    this.audioCtx = null;
+    this.welcomeBuffer = null;
+    this.crowBuffer = null;
+    this.welcomeBufferSource = null;
+
+    this.initAudioContext();
+    this.initHTMLAudio();
+    this.preloadAudioBuffers();
     this.initDirectPlayback();
   }
 
-  initAudioElements() {
-    // 1. Welcome Song
+  initAudioContext() {
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        this.audioCtx = new AudioContextClass();
+      }
+    } catch (e) {
+      console.warn('[AudioEngine] Web Audio API not supported, falling back to HTML5 audio', e);
+    }
+  }
+
+  initHTMLAudio() {
     const existingAudio = document.getElementById('welcome-audio');
     if (existingAudio) {
       this.welcomeAudio = existingAudio;
     } else {
-      this.welcomeAudio = new Audio(this.welcomeSongUrl);
+      this.welcomeAudio = new Audio();
       this.welcomeAudio.id = 'welcome-audio';
       this.welcomeAudio.preload = 'auto';
+      const s1 = document.createElement('source');
+      s1.src = this.welcomeM4aUrl;
+      s1.type = 'audio/mp4';
+      const s2 = document.createElement('source');
+      s2.src = this.welcomeWavUrl;
+      s2.type = 'audio/wav';
+      this.welcomeAudio.appendChild(s1);
+      this.welcomeAudio.appendChild(s2);
       document.body.appendChild(this.welcomeAudio);
     }
     this.welcomeAudio.volume = 0.9;
 
-    // 2. Original Indian Crow Caw Audio
-    this.crowAudio = new Audio(this.crowCawUrl);
+    this.crowAudio = new Audio(this.crowM4aUrl);
     this.crowAudio.preload = 'auto';
     this.crowAudio.volume = 0.85;
   }
 
+  preloadAudioBuffers() {
+    if (!this.audioCtx) return;
+
+    // 1. Preload Welcome Song (.m4a first, .wav fallback)
+    fetch(this.welcomeM4aUrl)
+      .then((r) => {
+        if (!r.ok) throw new Error('m4a fetch failed');
+        return r.arrayBuffer();
+      })
+      .then((buf) => this.audioCtx.decodeAudioData(buf))
+      .then((decoded) => {
+        this.welcomeBuffer = decoded;
+        if (!this.welcomePlayed && this.audioCtx.state === 'running') {
+          this.playWelcome();
+        }
+      })
+      .catch(() => {
+        fetch(this.welcomeWavUrl)
+          .then((r) => r.arrayBuffer())
+          .then((buf) => this.audioCtx.decodeAudioData(buf))
+          .then((decoded) => {
+            this.welcomeBuffer = decoded;
+            if (!this.welcomePlayed && this.audioCtx.state === 'running') {
+              this.playWelcome();
+            }
+          })
+          .catch(() => {});
+      });
+
+    // 2. Preload Studio-Clean Crow Caw
+    fetch(this.crowM4aUrl)
+      .then((r) => {
+        if (!r.ok) throw new Error('crow m4a fetch failed');
+        return r.arrayBuffer();
+      })
+      .then((buf) => this.audioCtx.decodeAudioData(buf))
+      .then((decoded) => {
+        this.crowBuffer = decoded;
+      })
+      .catch(() => {
+        fetch(this.crowWavUrl)
+          .then((r) => r.arrayBuffer())
+          .then((buf) => this.audioCtx.decodeAudioData(buf))
+          .then((decoded) => {
+            this.crowBuffer = decoded;
+          })
+          .catch(() => {});
+      });
+  }
+
   /**
-   * Play "Swagatham Susvagatham" directly when the website opens
+   * Play "Swagatham Suswagatham" directly when the website opens
    */
   initDirectPlayback() {
-    const handleStarted = () => {
-      this.welcomePlayed = true;
-      this.renderMusicBadge();
-      this.removeUnlockListeners();
-      const hint = document.getElementById('welcome-audio-hint');
-      if (hint) hint.remove();
-    };
-
+    // If HTML5 element is already playing from autoplay
     if (this.welcomeAudio && !this.welcomeAudio.paused && this.welcomeAudio.currentTime > 0) {
-      handleStarted();
+      this.onWelcomeStarted();
       return;
     }
 
     if (this.welcomeAudio) {
-      this.welcomeAudio.addEventListener('playing', handleStarted, { once: true });
+      this.welcomeAudio.addEventListener('playing', () => this.onWelcomeStarted(), { once: true });
     }
 
-    const startSong = () => {
-      if (this.welcomePlayed) return;
+    // Try playing immediately
+    this.playWelcome();
 
-      const promise = this.welcomeAudio.play();
-      if (promise !== undefined) {
-        promise.then(() => {
-          handleStarted();
-        }).catch((err) => {
-          // If browser policy deferred sound, show subtle tap-to-play hint banner
-          this.showAudioHint();
-        });
-      }
-    };
-
-    // Instant attempt on invocation
-    startSong();
-
-    // Setup unlock handlers on user interactions
-    const gestureEvents = ['pointerdown', 'mousedown', 'click', 'touchstart', 'keydown'];
-    const ambientEvents = ['mousemove', 'mouseenter', 'mouseover', 'scroll', 'wheel', 'focus'];
-
+    // Setup global interaction unlocking
     this.unlockHandler = () => {
       if (!this.welcomePlayed) {
-        startSong();
+        this.playWelcome();
       }
     };
 
-    ambientEvents.forEach((evt) => {
-      window.addEventListener(evt, this.unlockHandler, { passive: true, once: true });
-    });
+    const gestureEvents = ['pointerdown', 'mousedown', 'touchstart', 'click', 'keydown'];
+    const ambientEvents = ['mousemove', 'mouseenter', 'mouseover', 'scroll', 'wheel', 'focus'];
 
     gestureEvents.forEach((evt) => {
       window.addEventListener(evt, this.unlockHandler, { capture: true, once: true });
     });
 
+    ambientEvents.forEach((evt) => {
+      window.addEventListener(evt, this.unlockHandler, { passive: true, once: true });
+    });
+
     if (document.readyState === 'loading') {
-      window.addEventListener('DOMContentLoaded', startSong);
+      window.addEventListener('DOMContentLoaded', () => this.playWelcome());
     }
-    window.addEventListener('load', startSong);
+    window.addEventListener('load', () => this.playWelcome());
+  }
+
+  playWelcome() {
+    if (this.welcomePlayed) return;
+
+    // 1. Resume AudioContext
+    if (this.audioCtx && this.audioCtx.state === 'suspended') {
+      this.audioCtx.resume().then(() => {
+        if (!this.welcomePlayed && this.welcomeBuffer) {
+          this.startBufferPlayback();
+        }
+      }).catch(() => {});
+    }
+
+    // 2. If Web Audio buffer is ready, start it
+    if (this.audioCtx && this.audioCtx.state === 'running' && this.welcomeBuffer) {
+      this.startBufferPlayback();
+      return;
+    }
+
+    // 3. Simultaneously trigger HTML5 audio element
+    if (this.welcomeAudio) {
+      const p = this.welcomeAudio.play();
+      if (p !== undefined) {
+        p.then(() => {
+          this.onWelcomeStarted();
+        }).catch(() => {
+          this.showAudioHint();
+        });
+      }
+    }
+  }
+
+  startBufferPlayback() {
+    if (this.welcomePlayed || !this.audioCtx || !this.welcomeBuffer) return;
+    try {
+      const source = this.audioCtx.createBufferSource();
+      source.buffer = this.welcomeBuffer;
+      const gainNode = this.audioCtx.createGain();
+      gainNode.gain.value = 0.9;
+      source.connect(gainNode);
+      gainNode.connect(this.audioCtx.destination);
+      source.start(0);
+      this.welcomeBufferSource = source;
+
+      source.onended = () => {
+        const badge = document.getElementById('welcome-music-pill');
+        if (badge) {
+          badge.classList.add('fade-out');
+          setTimeout(() => badge.remove(), 1200);
+        }
+      };
+
+      this.onWelcomeStarted();
+    } catch (e) {
+      console.warn('[AudioEngine] Buffer play error', e);
+    }
+  }
+
+  onWelcomeStarted() {
+    if (this.welcomePlayed) return;
+    this.welcomePlayed = true;
+    this.renderMusicBadge();
+    this.removeUnlockListeners();
+
+    const hint = document.getElementById('welcome-audio-hint');
+    if (hint) {
+      hint.style.opacity = '0';
+      hint.style.transform = 'translate(-50%, -10px)';
+      setTimeout(() => hint.remove(), 400);
+    }
   }
 
   removeUnlockListeners() {
@@ -137,12 +267,9 @@ class AudioEngine {
       </div>
     `;
 
-    hint.addEventListener('click', () => {
-      this.welcomeAudio.play().then(() => {
-        this.welcomePlayed = true;
-        this.renderMusicBadge();
-        hint.remove();
-      }).catch(() => {});
+    hint.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.playWelcome();
     });
 
     document.body.appendChild(hint);
@@ -177,35 +304,70 @@ class AudioEngine {
       if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
           e.stopPropagation();
-          if (this.welcomeAudio) {
-            this.welcomeAudio.pause();
-          }
+          this.stopWelcome();
           badge.classList.add('fade-out');
           setTimeout(() => badge.remove(), 400);
         });
       }
 
-      this.welcomeAudio.addEventListener('ended', () => {
-        badge.classList.add('fade-out');
-        setTimeout(() => badge.remove(), 1200);
-      });
+      if (this.welcomeAudio) {
+        this.welcomeAudio.addEventListener('ended', () => {
+          badge.classList.add('fade-out');
+          setTimeout(() => badge.remove(), 1200);
+        });
+      }
+    }
+  }
+
+  stopWelcome() {
+    if (this.welcomeAudio) {
+      try { this.welcomeAudio.pause(); } catch (e) {}
+    }
+    if (this.welcomeBufferSource) {
+      try { this.welcomeBufferSource.stop(); } catch (e) {}
+      this.welcomeBufferSource = null;
     }
   }
 
   /**
-   * Authentic Indian Crow Caw trigger
+   * Pristine, studio-isolated Indian Crow Caw trigger with zero background noise
    */
   playCrowCaw() {
-    if (!this.crowAudio) return;
-    try {
-      const cawClone = this.crowAudio.cloneNode();
-      cawClone.volume = 0.85;
-      cawClone.play().catch(() => {});
-    } catch (e) {
+    const now = Date.now();
+    if (now - this.lastCawTime < 380) return;
+    this.lastCawTime = now;
+
+    // 1. Try Web Audio buffer for zero latency & pristine fidelity
+    if (this.audioCtx && this.crowBuffer) {
       try {
-        this.crowAudio.currentTime = 0;
-        this.crowAudio.play().catch(() => {});
-      } catch (err) {}
+        if (this.audioCtx.state === 'suspended') {
+          this.audioCtx.resume().catch(() => {});
+        }
+        const source = this.audioCtx.createBufferSource();
+        source.buffer = this.crowBuffer;
+        const gainNode = this.audioCtx.createGain();
+        gainNode.gain.value = 0.85;
+        source.connect(gainNode);
+        gainNode.connect(this.audioCtx.destination);
+        source.start(0);
+        return;
+      } catch (err) {
+        console.warn('[AudioEngine] Crow buffer playback error', err);
+      }
+    }
+
+    // 2. Fallback to HTML5 audio
+    if (this.crowAudio) {
+      try {
+        const cawClone = this.crowAudio.cloneNode();
+        cawClone.volume = 0.85;
+        cawClone.play().catch(() => {});
+      } catch (e) {
+        try {
+          this.crowAudio.currentTime = 0;
+          this.crowAudio.play().catch(() => {});
+        } catch (err) {}
+      }
     }
   }
 
@@ -216,7 +378,7 @@ class AudioEngine {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (!AudioCtx) return;
-      const ctx = new AudioCtx();
+      const ctx = this.audioCtx || new AudioCtx();
       const freqs = [554.37, 659.25, 830.61, 1108.74];
       freqs.forEach((freq, idx) => {
         const osc = ctx.createOscillator();
