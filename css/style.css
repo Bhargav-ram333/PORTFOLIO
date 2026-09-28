@@ -143,83 +143,80 @@ a {
 }
 
 /* ==========================================================================
-   CUSTOM CURSOR
+   FLYING CROW CUSTOM CURSOR ("THE PARADISE" CINEMATIC EDITION)
    ========================================================================== */
-.custom-cursor-dot {
+.custom-crow-cursor {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--accent-cyan);
-  border-radius: 50%;
+  width: 48px;
+  height: 40px;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
-  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
-  box-shadow: 0 0 10px var(--accent-cyan);
+  will-change: transform;
+  transform-origin: 50% 12%;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 6px rgba(255, 42, 66, 0.35));
+  transition: filter 0.25s ease;
 }
 
-.custom-cursor-ring {
+.custom-crow-cursor .crow-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  display: block;
+}
+
+.custom-crow-cursor .crow-wing-left,
+.custom-crow-cursor .crow-wing-right {
+  transform-box: fill-box;
+  will-change: transform;
+}
+
+.custom-crow-cursor .crow-wing-left {
+  transform-origin: right 50%;
+}
+
+.custom-crow-cursor .crow-wing-right {
+  transform-origin: left 50%;
+}
+
+/* Hover Stance: Crow eye and aura flares bright molten crimson / amber */
+body.cursor-hover .custom-crow-cursor,
+body.cursor-view .custom-crow-cursor,
+body.cursor-copy .custom-crow-cursor {
+  filter: drop-shadow(0 0 16px rgba(255, 42, 66, 0.85)) drop-shadow(0 0 6px #ffa200);
+}
+
+/* Action Pill beside Crow */
+.crow-action-pill {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid rgba(0, 242, 254, 0.5);
-  border-radius: 50%;
   pointer-events: none;
   z-index: 99998;
-  transform: translate(-50%, -50%);
-  transition: width 0.25s var(--ease-spring), 
-              height 0.25s var(--ease-spring), 
-              border-color 0.2s ease, 
-              background-color 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.custom-cursor-ring .cursor-text {
+  padding: 4px 10px;
+  background: rgba(7, 8, 10, 0.9);
+  border: 1px solid var(--border-glow);
+  border-radius: 999px;
+  color: var(--accent-amber);
   font-family: var(--font-mono);
-  font-size: 8px;
+  font-size: 8.5px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: #000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 0 10px rgba(255, 42, 66, 0.3);
   opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
+  transform: translate(24px, 18px);
+  transition: opacity 0.2s ease, transform 0.2s var(--ease-spring);
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
 }
 
-/* Hover States for Cursor */
-body.cursor-hover .custom-cursor-ring {
-  width: 52px;
-  height: 52px;
-  border-color: var(--accent-cyan);
-  background: rgba(0, 242, 254, 0.12);
-  backdrop-filter: blur(2px);
-}
-
-body.cursor-view .custom-cursor-ring {
-  width: 68px;
-  height: 68px;
-  background: var(--accent-cyan);
-  border-color: var(--accent-cyan);
-}
-body.cursor-view .custom-cursor-ring .cursor-text {
+body.cursor-view .crow-action-pill,
+body.cursor-copy .crow-action-pill,
+body.cursor-hover .crow-action-pill {
   opacity: 1;
-}
-
-body.cursor-copy .custom-cursor-ring {
-  width: 64px;
-  height: 64px;
-  background: var(--accent-emerald);
-  border-color: var(--accent-emerald);
-}
-body.cursor-copy .custom-cursor-ring .cursor-text {
-  opacity: 1;
-  color: #000;
+  transform: translate(28px, 14px);
 }
 
 @media (pointer: fine) {
@@ -229,7 +226,7 @@ body.cursor-copy .custom-cursor-ring .cursor-text {
 }
 
 @media (pointer: coarse) {
-  .custom-cursor-dot, .custom-cursor-ring {
+  .custom-crow-cursor, .crow-action-pill, .crow-particle-canvas {
     display: none !important;
   }
 }
@@ -2082,3 +2079,277 @@ body.cursor-copy .custom-cursor-ring .cursor-text {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   AESTHETIC ARCHITECTURE & CREATIVE TELEMETRY
+   Indirect subtle design detailings: Photography (Optics), Editing (Timeline/24fps),
+   Music Composition (432Hz/Harmonics), Artistry (Charcoal/Canvas), Dance (Kinetic Cadence).
+   ========================================================================== */
+
+/* 1. Cinematic Hero Telemetry Bar */
+.aesthetic-telemetry-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  margin-bottom: 28px;
+  padding: 8px 18px;
+  background: rgba(10, 12, 18, 0.82);
+  border: 1px solid rgba(255, 42, 66, 0.25);
+  border-radius: var(--radius-full);
+  backdrop-filter: blur(14px);
+  width: fit-content;
+  max-width: 100%;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6), inset 0 0 14px rgba(255, 42, 66, 0.06);
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  cursor: help;
+  position: relative;
+  transition: color 0.25s ease, transform 0.2s ease;
+}
+
+.telemetry-pill:hover {
+  color: var(--accent-amber);
+  transform: translateY(-1px);
+}
+
+.telemetry-icon-symbol {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+.telemetry-tag-rec {
+  color: #ff2a42;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rec-blink-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff2a42;
+  box-shadow: 0 0 8px #ff2a42;
+  animation: pulseGlow 1.5s infinite;
+}
+
+.telemetry-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.telemetry-pill::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 6px 12px;
+  background: rgba(8, 10, 15, 0.96);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+}
+
+.telemetry-pill:hover::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 2. Photography Detailings: Viewfinder Brackets & Optics Metas */
+.project-image-box {
+  position: relative;
+}
+
+.viewfinder-bracket {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(255, 42, 66, 0.55);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 4;
+  transition: border-color 0.3s ease, transform 0.3s var(--ease-spring);
+}
+
+.project-card-tilt:hover .viewfinder-bracket {
+  border-color: #ffa200;
+}
+
+.viewfinder-tl {
+  top: 10px;
+  left: 10px;
+  border-width: 1.5px 0 0 1.5px;
+}
+.project-card-tilt:hover .viewfinder-tl {
+  transform: translate(-2px, -2px);
+}
+
+.viewfinder-tr {
+  top: 10px;
+  right: 10px;
+  border-width: 1.5px 1.5px 0 0;
+}
+.project-card-tilt:hover .viewfinder-tr {
+  transform: translate(2px, -2px);
+}
+
+.viewfinder-bl {
+  bottom: 10px;
+  left: 10px;
+  border-width: 0 0 1.5px 1.5px;
+}
+.project-card-tilt:hover .viewfinder-bl {
+  transform: translate(-2px, 2px);
+}
+
+.viewfinder-br {
+  bottom: 10px;
+  right: 10px;
+  border-width: 0 1.5px 1.5px 0;
+}
+.project-card-tilt:hover .viewfinder-br {
+  transform: translate(2px, 2px);
+}
+
+.optics-meta-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.8px;
+  color: var(--accent-blue);
+  background: rgba(14, 16, 24, 0.85);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lens-focus-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 36px;
+  height: 36px;
+  border: 1.5px dashed rgba(255, 162, 0, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-spring);
+  z-index: 5;
+}
+
+.project-card-tilt:hover .lens-focus-ring {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* 3. Editor Detailings: NLE Timeline Track Markers & Keyframes */
+.timeline-nle-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-purple);
+  background: rgba(183, 9, 76, 0.12);
+  border: 1px solid rgba(183, 9, 76, 0.3);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.timeline-keyframe {
+  color: var(--accent-amber);
+  margin-right: 4px;
+}
+
+/* 4. Artist Detailings: Charcoal / Graphite Brush Stroke Underline */
+.charcoal-stroke-svg {
+  display: block;
+  width: 140px;
+  height: 8px;
+  margin: 10px auto 0;
+  filter: drop-shadow(0 0 4px rgba(255, 42, 66, 0.4));
+}
+
+.charcoal-stroke-left {
+  margin: 10px 0 0 0;
+}
+
+/* Canvas Palette Study Bar */
+.canvas-palette-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 14px;
+  background: rgba(14, 16, 24, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  color: var(--text-dim);
+  margin-top: 14px;
+}
+
+.palette-swatches {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.palette-swatch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.palette-swatch-dot:hover {
+  transform: scale(1.35);
+  box-shadow: 0 0 8px currentColor;
+}
+
+/* 5. Dancer Detailings: Kinetic Cadence & Fluid Momentum Tokens */
+.cadence-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-emerald);
+  background: rgba(255, 162, 0, 0.1);
+  border: 1px solid rgba(255, 162, 0, 0.25);
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+

@@ -16,16 +16,21 @@ class InteractiveTerminal {
     this.commands = {
       help: () => `
 Available Commands:
-  <span style="color:#00f2fe;">bio</span>         : Display summary & profile overview
-  <span style="color:#00f2fe;">skills</span>      : List ML, Data Engineering & Web skills
-  <span style="color:#00f2fe;">projects</span>    : View flagship projects & GitHub repositories
-  <span style="color:#00f2fe;">education</span>   : View academic background & high scores
-  <span style="color:#00f2fe;">experience</span>  : Show internships & industry experience
-  <span style="color:#00f2fe;">achievements</span>: Certifications & hackathons
-  <span style="color:#00f2fe;">contact</span>     : Contact details & direct social links
-  <span style="color:#00f2fe;">resume</span>      : Open & download official resume PDF
-  <span style="color:#00f2fe;">sudo hire</span>   : [AUTHORIZED] Direct interview / role invitation
-  <span style="color:#00f2fe;">clear</span>       : Clear terminal screen
+  <span style="color:#ff2a42;">bio</span>         : Display summary & profile overview
+  <span style="color:#ff2a42;">skills</span>      : List ML, Data Engineering & Web skills
+  <span style="color:#ff2a42;">projects</span>    : View flagship projects & GitHub repositories
+  <span style="color:#ff2a42;">education</span>   : View academic background & high scores
+  <span style="color:#ff2a42;">experience</span>  : Show internships & industry experience
+  <span style="color:#ff2a42;">achievements</span>: Certifications & hackathons
+  <span style="color:#ff2a42;">optics</span>      : Visual framing, 35mm composition & depth-of-field
+  <span style="color:#ff2a42;">timeline</span>    : NLE 24.00 FPS post-production timeline tracks
+  <span style="color:#ff2a42;">score</span>       : Harmonic 432 Hz frequency scoring & soundscapes
+  <span style="color:#ff2a42;">canvas</span>      : Raw charcoal & graphite raven art study
+  <span style="color:#ff2a42;">cadence</span>     : Kinetic choreography & fluid motion physics
+  <span style="color:#ff2a42;">contact</span>     : Contact details & direct social links
+  <span style="color:#ff2a42;">resume</span>      : Open & download official resume PDF
+  <span style="color:#ffa200;">sudo hire</span>   : [AUTHORIZED] Direct interview / role invitation
+  <span style="color:#ff6b35;">clear</span>       : Clear terminal screen
 `,
       bio: () => `
 <strong style="color:#fff;">Chiravuri Satya Siva Bhargav</strong>
@@ -91,6 +96,50 @@ Email    : <a href="mailto:sivabhargav2006@gmail.com" style="color:#00f2fe;">siv
 Phone    : <a href="tel:+919989712314" style="color:#00f2fe;">(+91) 9989712314</a>
 GitHub   : <a href="https://github.com/Bhargav-ram333" target="_blank" style="color:#00f2fe;">github.com/Bhargav-ram333</a>
 LinkedIn : <a href="https://linkedin.com/in/satya-siva-bhargav" target="_blank" style="color:#00f2fe;">linkedin.com/in/satya-siva-bhargav</a>
+`,
+      optics: () => `
+<strong style="color:#ffa200;">[OPTICS & VISUAL FRAMING — 35mm PERSPECTIVE]</strong>
+• <strong>Framing</strong>    : Golden Ratio, Rule of Thirds, and intentional Negative Space
+• <strong>Aperture</strong>   : ƒ/1.4 shallow depth-of-field focusing user attention on primary data signals
+• <strong>Exposure</strong>   : 1/250s shutter speed • ISO 200 • Full-frame dynamic range
+• <strong>Philosophy</strong> : "A camera is an instrument that teaches people how to see without a camera."
+  In software architecture, visual optics dictate how contrast and negative space naturally guide human perception through dense data environments.
+`,
+      timeline: () => `
+<strong style="color:#ff2a42;">[NLE VIDEO POST-PRODUCTION TIMELINE — 24.00 FPS]</strong>
+  TIME     : 00:24:18:14 | SEQUENCE: THE_PARADISE | CODEC: PRORES 4444 XQ
+  [V1]     : <span style="color:#ff2a42;">■■■■■■■■■■■■■■■■■■■■■■■■■</span> [PRODUCTION REEL & ARCHITECTURE]
+  [A1]     : <span style="color:#ff6b35;">░░░░░░░░░░░░░░░░░░░░░░░░░</span> [DIALOGUE & STATISTICAL PIPELINES]
+  [A2]     : <span style="color:#ffa200;">▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒</span> [ORIGINAL SCORE & 432Hz HARMONICS]
+  PLAYHEAD : ▼ TC 00:24:18:14 (Cadence cut to rhythm and dramatic narrative beats)
+`,
+      score: () => `
+<strong style="color:#ff6b35;">[SONIC COMPOSITION & HARMONIC ARCHITECTURE]</strong>
+• <strong>Master Tuning</strong> : 432 Hz Pythagorean Concert Pitch
+• <strong>Harmonic Key</strong>  : D-Minor Pentatonic (D4 • F4 • G4 • A4 • C5 • D5)
+• <strong>Soundscape</strong>    : Synthesized sub-bass drones, acoustic chime impulses, and atmospheric resonance
+• <strong>Synesthesia</strong>   : Translating frequency modulation into responsive visual rhythms across user interactions.
+`,
+      canvas: () => `
+<strong style="color:#ffd166;">[GRAPHITE & CHARCOAL CANVAS STUDY]</strong>
+<span style="color:#ff2a42; font-family:monospace; line-height:1.2;">
+           .---.
+          /     \\       .-.
+         | () () |     /   \\   [ SOARING RAVEN ]
+          \\  ^  /     /     \\  Charcoal & Molten Ember Study
+           |||||     /       \\ Medium: Raw Graphite on Obsidian
+           |||||____/         \\
+          /                     \\
+         /                       \\
+</span>
+• <strong>Palette</strong> : #07080A [Charcoal] • #FF2A42 [Molten Crimson] • #FF6B35 [Ember] • #FFA200 [Ochre]
+• <strong>Medium</strong>  : Expressive gestural strokes, raw graphite textures, and high-contrast tonal values.
+`,
+      cadence: () => `
+<strong style="color:#ffa200;">[KINETIC CADENCE & CHOREOGRAPHY OF MOTION]</strong>
+• <strong>Physics Engine</strong> : Bezier Cadence (0.16, 1, 0.3, 1) with fluid inertia
+• <strong>Spatial Logic</strong>  : Balance, momentum, intentional tension, and graceful release
+• <strong>Philosophy</strong>     : Coding and dance converge on kinetic rhythm. An interface should never feel static or abruptly mechanical; every transition moves with organic human cadence.
 `,
       resume: () => {
         window.open('assets/resume.pdf', '_blank');
