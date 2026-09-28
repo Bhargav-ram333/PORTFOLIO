@@ -218,6 +218,12 @@ body.cursor-copy .custom-cursor-ring .cursor-text {
   color: #000;
 }
 
+@media (pointer: fine) {
+  html, body, a, button, input, textarea, select, [role="button"], label, .btn, .filter-chip, .tab-btn {
+    cursor: none !important;
+  }
+}
+
 @media (pointer: coarse) {
   .custom-cursor-dot, .custom-cursor-ring {
     display: none !important;
@@ -719,8 +725,8 @@ body.cursor-copy .custom-cursor-ring .cursor-text {
 /* Stats Strip */
 .hero-stats-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   padding: 24px 28px;
   background: var(--bg-card);
   backdrop-filter: blur(16px);
