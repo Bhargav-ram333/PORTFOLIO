@@ -1,5 +1,5 @@
 /**
- * The Paradise Edition — Majestic Flying Crow Cursor & Feather/Ember Particle Engine
+ * Majestic Flying Crow Cursor & Feather/Ember Particle Engine
  * Custom soaring raven simulation with aerodynamic banking, dynamic wing flap physics,
  * drifting charcoal feather trails, and molten ember bursts.
  */

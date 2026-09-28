@@ -101,36 +101,6 @@ class PortfolioApp {
     this.initClipboard();
     this.initContactForm();
     this.initDeepLinkParams();
-    this.initCinematicTimecode();
-  }
-
-  // 24.00 FPS Live Cinematic Post-Production Timecode Ticker
-  initCinematicTimecode() {
-    const tcEl = document.getElementById('live-timecode');
-    if (!tcEl) return;
-
-    let frames = 4;
-    let seconds = 18;
-    let minutes = 24;
-    let hours = 0;
-
-    setInterval(() => {
-      frames++;
-      if (frames >= 24) {
-        frames = 0;
-        seconds++;
-        if (seconds >= 60) {
-          seconds = 0;
-          minutes++;
-          if (minutes >= 60) {
-            minutes = 0;
-            hours++;
-          }
-        }
-      }
-      const pad = (n) => String(n).padStart(2, '0');
-      tcEl.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}:${pad(frames)}`;
-    }, 1000 / 24); // Exact 24 FPS Cadence
   }
 
   // Deep Link Query Params (e.g. ?section=projects or ?project=inscript or ?resume=1)
