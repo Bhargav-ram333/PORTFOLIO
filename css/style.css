@@ -1,39 +1,39 @@
 /* ==========================================================================
    CHIRAVURI SATYA SIVA BHARGAV - PORTFOLIO STYLESHEET
-   Cybernetic AI / Futuristic High-Performance Design System
+   "THE PARADISE" CINEMATIC THEME (Charcoal, Molten Crimson & Fiery Embers)
    ========================================================================== */
 
 :root {
-  /* Color Palette */
-  --bg-dark: #06080d;
-  --bg-surface: #0b0f19;
-  --bg-card: rgba(14, 20, 33, 0.75);
-  --bg-card-hover: rgba(20, 28, 48, 0.85);
-  --bg-glass: rgba(11, 17, 28, 0.65);
+  /* Color Palette - The Paradise Aesthetic */
+  --bg-dark: #07080a;
+  --bg-surface: #0e1015;
+  --bg-card: rgba(18, 20, 28, 0.82);
+  --bg-card-hover: rgba(28, 32, 44, 0.9);
+  --bg-glass: rgba(14, 16, 22, 0.72);
   
-  --accent-cyan: #00f2fe;
-  --accent-cyan-glow: rgba(0, 242, 254, 0.35);
-  --accent-blue: #4facfe;
-  --accent-purple: #9d4edd;
-  --accent-purple-glow: rgba(157, 78, 221, 0.35);
-  --accent-pink: #f72585;
-  --accent-emerald: #00f5a0;
-  --accent-emerald-glow: rgba(0, 245, 160, 0.3);
-  --accent-amber: #ffb703;
+  --accent-cyan: #ff2a42; /* Molten Crimson Primary */
+  --accent-cyan-glow: rgba(255, 42, 66, 0.45);
+  --accent-blue: #ff6b35; /* Fiery Ember Orange */
+  --accent-purple: #b7094c; /* Deep Blood Maroon */
+  --accent-purple-glow: rgba(183, 9, 76, 0.4);
+  --accent-pink: #e63946;
+  --accent-emerald: #ffa200; /* Molten Amber Gold */
+  --accent-emerald-glow: rgba(255, 162, 0, 0.4);
+  --accent-amber: #ffd166; /* Bright Fire Spark */
 
-  --text-main: #f0f4fc;
-  --text-muted: #8e9bb0;
-  --text-dim: #5c687d;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
   
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(0, 242, 254, 0.3);
-  --border-card: rgba(255, 255, 255, 0.1);
+  --border-glow: rgba(255, 42, 66, 0.45);
+  --border-card: rgba(255, 107, 53, 0.2);
 
-  --gradient-primary: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #9d4edd 100%);
-  --gradient-cyan: linear-gradient(135deg, #00f2fe 0%, #00c6ff 100%);
-  --gradient-emerald: linear-gradient(135deg, #00f5a0 0%, #00d2ff 100%);
-  --gradient-purple: linear-gradient(135deg, #9d4edd 0%, #f72585 100%);
-  --gradient-card: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  --gradient-primary: linear-gradient(135deg, #ff2a42 0%, #ff6b35 50%, #ffa200 100%);
+  --gradient-cyan: linear-gradient(135deg, #ff2a42 0%, #ff6b35 100%);
+  --gradient-emerald: linear-gradient(135deg, #ffa200 0%, #ff6b35 100%);
+  --gradient-purple: linear-gradient(135deg, #b7094c 0%, #ff2a42 100%);
+  --gradient-card: linear-gradient(135deg, rgba(255, 42, 66, 0.07) 0%, rgba(255, 107, 53, 0.02) 100%);
 
   /* Typography */
   --font-heading: 'Outfit', 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -78,10 +78,14 @@ html {
 body {
   background-color: var(--bg-dark);
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.04) 0%, transparent 40%),
-    radial-gradient(circle at 85% 30%, rgba(157, 78, 221, 0.05) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(0, 245, 160, 0.03) 0%, transparent 50%);
+    linear-gradient(180deg, rgba(7, 8, 10, 0.88), rgba(7, 8, 10, 0.93)),
+    url('../assets/paradise_bg.jpg'),
+    radial-gradient(circle at 15% 15%, rgba(255, 42, 66, 0.1) 0%, transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(255, 107, 53, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(183, 9, 76, 0.07) 0%, transparent 55%);
   background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -95,7 +99,7 @@ body {
   background: var(--bg-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a2336;
+  background: #1c1318;
   border-radius: var(--radius-full);
   border: 2px solid var(--bg-dark);
 }
@@ -105,7 +109,7 @@ body {
 
 ::selection {
   background: var(--accent-cyan);
-  color: #000;
+  color: #fff;
 }
 
 /* Typography Helpers */

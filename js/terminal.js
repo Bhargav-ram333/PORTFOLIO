@@ -159,7 +159,7 @@ LinkedIn : <a href="https://linkedin.com/in/satya-siva-bhargav" target="_blank" 
     // Print command line
     const promptLine = document.createElement('div');
     promptLine.className = 't-prompt-line';
-    promptLine.innerHTML = `<span class="t-prompt-symbol">guest@bhargav-ai</span>:<span class="t-prompt-path">~</span>$ <span>${escapeHtml(cmdText)}</span>`;
+    promptLine.innerHTML = `<span class="t-prompt-symbol">guest@the-paradise</span>:<span class="t-prompt-path">~</span>$ <span>${escapeHtml(cmdText)}</span>`;
     this.body.appendChild(promptLine);
 
     let outputHtml = '';

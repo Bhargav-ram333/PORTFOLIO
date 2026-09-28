@@ -55,19 +55,21 @@ class InteractiveCursor {
       this.mouse.x = e.clientX;
       this.mouse.y = e.clientY;
 
-      // Create occasional subtle trail sparks on movement
-      if (Math.random() < 0.2) {
-        this.addSpark(e.clientX, e.clientY, (Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2, 2, 'rgba(0, 242, 254, 0.7)');
+      // Create occasional subtle trail sparks on movement like drifting embers
+      if (Math.random() < 0.28) {
+        const emberColor = Math.random() < 0.5 ? 'rgba(255, 42, 66, 0.85)' : 'rgba(255, 107, 53, 0.85)';
+        this.addSpark(e.clientX, e.clientY, (Math.random() - 0.5) * 2.2, -0.8 - Math.random() * 1.5, 2.8, emberColor);
       }
     });
 
     window.addEventListener('mousedown', (e) => {
-      // Burst of glowing sparks on click
-      for (let i = 0; i < 12; i++) {
-        const angle = (Math.PI * 2 * i) / 12 + Math.random() * 0.5;
-        const speed = 2 + Math.random() * 3.5;
-        const color = Math.random() < 0.5 ? 'rgba(0, 242, 254, 0.9)' : 'rgba(157, 78, 221, 0.9)';
-        this.addSpark(e.clientX, e.clientY, Math.cos(angle) * speed, Math.sin(angle) * speed, 3.5, color);
+      // Intense burst of molten fire embers on click
+      const emberColors = ['rgba(255, 42, 66, 0.95)', 'rgba(255, 107, 53, 0.95)', 'rgba(255, 162, 0, 0.95)', 'rgba(255, 209, 102, 0.95)'];
+      for (let i = 0; i < 18; i++) {
+        const angle = (Math.PI * 2 * i) / 18 + Math.random() * 0.4;
+        const speed = 2.5 + Math.random() * 4.2;
+        const color = emberColors[Math.floor(Math.random() * emberColors.length)];
+        this.addSpark(e.clientX, e.clientY, Math.cos(angle) * speed, Math.sin(angle) * speed - 1.0, 3.8, color);
       }
       this.ring.style.transform = `translate(-50%, -50%) scale(0.8)`;
     });

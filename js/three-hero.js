@@ -69,9 +69,9 @@ class NeuralSphereHero {
     const colors = new Float32Array(this.particleCount * 3);
     this.originalPositions = new Float32Array(this.particleCount * 3);
 
-    const cyanColor = new THREE.Color(0x00f2fe);
-    const purpleColor = new THREE.Color(0x9d4edd);
-    const emeraldColor = new THREE.Color(0x00f5a0);
+    const crimsonColor = new THREE.Color(0xff2a42);
+    const emberColor = new THREE.Color(0xff6b35);
+    const goldColor = new THREE.Color(0xffa200);
 
     for (let i = 0; i < this.particleCount; i++) {
       // Fibonacci sphere distribution for uniform organic neural shell
@@ -93,13 +93,13 @@ class NeuralSphereHero {
       this.originalPositions[i * 3 + 1] = y;
       this.originalPositions[i * 3 + 2] = z;
 
-      // Color interpolation: Cyan -> Purple -> Emerald
-      const mixedColor = cyanColor.clone();
+      // Color interpolation: Molten Crimson -> Fiery Ember -> Golden Spark
+      const mixedColor = crimsonColor.clone();
       const rand = Math.random();
       if (rand < 0.6) {
-        mixedColor.lerp(purpleColor, Math.random() * 0.7);
+        mixedColor.lerp(emberColor, Math.random() * 0.8);
       } else {
-        mixedColor.lerp(emeraldColor, Math.random() * 0.8);
+        mixedColor.lerp(goldColor, Math.random() * 0.9);
       }
 
       colors[i * 3] = mixedColor.r;
@@ -155,8 +155,8 @@ class NeuralSphereHero {
 
     const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
     gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    gradient.addColorStop(0.3, 'rgba(0, 242, 254, 0.8)');
-    gradient.addColorStop(0.7, 'rgba(157, 78, 221, 0.2)');
+    gradient.addColorStop(0.25, 'rgba(255, 42, 66, 0.95)');
+    gradient.addColorStop(0.65, 'rgba(255, 107, 53, 0.35)');
     gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
     ctx.fillStyle = gradient;
@@ -169,7 +169,7 @@ class NeuralSphereHero {
 
   createOrbitRings() {
     const ringRadii = [340, 420];
-    const ringColors = [0x00f2fe, 0x9d4edd];
+    const ringColors = [0xff2a42, 0xffa200];
 
     ringRadii.forEach((r, idx) => {
       const ringGeom = new THREE.RingGeometry(r, r + 1.5, 96);
@@ -354,14 +354,14 @@ class NeuralSphereHero {
           linePositions[vertexPos++] = p2y;
           linePositions[vertexPos++] = p2z;
 
-          // Cyan to purple gradient lines
-          lineColors[colorPos++] = 0.0;
-          lineColors[colorPos++] = 0.95 * alpha;
+          // Molten crimson to ember orange gradient lines
           lineColors[colorPos++] = 1.0 * alpha;
+          lineColors[colorPos++] = 0.16 * alpha;
+          lineColors[colorPos++] = 0.26 * alpha;
 
-          lineColors[colorPos++] = 0.62 * alpha;
-          lineColors[colorPos++] = 0.31 * alpha;
-          lineColors[colorPos++] = 0.87 * alpha;
+          lineColors[colorPos++] = 1.0 * alpha;
+          lineColors[colorPos++] = 0.42 * alpha;
+          lineColors[colorPos++] = 0.12 * alpha;
 
           connectionsCount++;
         }
