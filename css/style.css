@@ -143,48 +143,17 @@ a {
 }
 
 /* ==========================================================================
-   FLYING CROW CUSTOM CURSOR
+   3D THREE.JS FLYING CROW CURSOR
    ========================================================================== */
-.custom-crow-cursor {
+#crow-3d-canvas {
   position: fixed;
   top: 0;
   left: 0;
-  width: 54px;
-  height: 44px;
+  width: 100vw;
+  height: 100vh;
   pointer-events: none;
   z-index: 99999;
-  will-change: transform;
-  transform-origin: 50% 16%;
-  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 8px rgba(255, 42, 66, 0.4));
-  transition: filter 0.25s ease;
-}
-
-.custom-crow-cursor .crow-svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
   display: block;
-}
-
-.custom-crow-cursor .crow-wing-left,
-.custom-crow-cursor .crow-wing-right {
-  transform-box: fill-box;
-  will-change: transform;
-}
-
-.custom-crow-cursor .crow-wing-left {
-  transform-origin: right 50%;
-}
-
-.custom-crow-cursor .crow-wing-right {
-  transform-origin: left 50%;
-}
-
-/* Hover Stance: Crow eye and aura flares bright molten crimson / amber */
-body.cursor-hover .custom-crow-cursor,
-body.cursor-view .custom-crow-cursor,
-body.cursor-copy .custom-crow-cursor {
-  filter: drop-shadow(0 0 16px rgba(255, 42, 66, 0.85)) drop-shadow(0 0 6px #ffa200);
 }
 
 /* Action Pill beside Crow */

@@ -1,310 +1,487 @@
 /**
- * Realistic Soaring Raven / Crow Cursor & Sound Engine
+ * Full 3D Interactive Soaring Raven / Crow Cursor & Sound Engine
+ * Built with Three.js WebGL
  * Portfolio of Chiravuri Satya Siva Bhargav
+ *
  * Features:
- *  - Anatomically authentic corvid silhouette with primary flight pinions & wedge tail
- *  - Aerodynamic banking, dynamic dihedral wing flap physics, and pitch-roll mechanics
- *  - Authentic crow cawing sound trigger on interaction with animated beak opening
- *  - Drifting charcoal feathers and molten ember particle engine
+ *  - Real-time 3D sculpted Corvid (Crow/Raven) with specular obsidian plumage
+ *  - Articulated 3D dual-jointed wings with aerodynamic avian kinematics (flapping, soaring, banking)
+ *  - 3D animated opening beak during vocal cawing
+ *  - Glowing molten ruby/amber 3D corvid eyes with point lights
+ *  - Authentic Indian Crow (Corvus splendens) cawing sound on interaction
+ *  - 3D drifting feather particle simulation with tumbling aerodynamics
+ *  - Molten fire ember wake particles
  */
 
-class FlyingCrowCursor {
+class ThreeCrowCursor {
   constructor() {
-    // Only initialize if device has fine pointer (mouse/trackpad)
+    // Only initialize on desktop/fine-pointer devices
     if (window.matchMedia('(pointer: coarse)').matches) return;
+    if (typeof THREE === 'undefined') {
+      console.warn('Three.js not found, falling back');
+      return;
+    }
 
-    // Create the flying crow DOM element
-    this.crow = document.createElement('div');
-    this.crow.className = 'custom-crow-cursor';
-    this.crow.setAttribute('aria-hidden', 'true');
+    this.initCanvas();
+    this.initThree();
+    this.create3DCrow();
+    this.initParticles();
+    this.initActionPill();
+    this.initEvents();
+    this.animate();
+  }
 
-    // Anatomically detailed Corvid silhouette with individual slotted flight pinions,
-    // articulated maxilla beak, throat hackles, and glossy plumage sheen
-    this.crow.innerHTML = `
-      <svg class="crow-svg" viewBox="0 0 68 56" width="54" height="44">
-        <defs>
-          <filter id="crowEyeGlow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="1.2" result="blur" />
-            <feMerge>
-              <feMergeNode in="blur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-          <linearGradient id="featherSheen" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#141824" />
-            <stop offset="50%" stop-color="#08090e" />
-            <stop offset="100%" stop-color="#1c1622" />
-          </linearGradient>
-          <linearGradient id="wingGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#161b28" />
-            <stop offset="100%" stop-color="#07080c" />
-          </linearGradient>
-        </defs>
+  initCanvas() {
+    this.canvas = document.createElement('canvas');
+    this.canvas.id = 'crow-3d-canvas';
+    this.canvas.style.position = 'fixed';
+    this.canvas.style.top = '0';
+    this.canvas.style.left = '0';
+    this.canvas.style.width = '100vw';
+    this.canvas.style.height = '100vh';
+    this.canvas.style.pointerEvents = 'none';
+    this.canvas.style.zIndex = '99999';
+    document.body.appendChild(this.canvas);
+  }
 
-        <!-- Dynamic Flight Container -->
-        <g class="crow-flight-group">
-          <!-- Raven Wedge Tail Feathers (12 rectrices forming classic diamond wedge) -->
-          <g class="crow-tail-group">
-            <path class="crow-tail" d="M30,32 L24,52 L34,55 L44,52 L38,32 Z" fill="url(#wingGradient)" stroke="#ff2a42" stroke-width="0.5" stroke-opacity="0.4" />
-            <path d="M28,34 L27,51 M31,34 L31,54 M34,34 L34,55 M37,34 L37,54 M40,34 L41,51" stroke="#222838" stroke-width="0.8" />
-          </g>
+  initThree() {
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
 
-          <!-- Left Wing (Hinged at shoulder joint x=29, y=20) -->
-          <g class="crow-wing-left" style="transform-origin: 29px 20px;">
-            <!-- Main Wing Arm & Secondary Coverts -->
-            <path d="M29,20 C20,15 12,13 3,14 C1,16 1,18 2,20 C6,23 11,26 16,27 C21,28 26,26 29,24 Z" 
-                  fill="url(#wingGradient)" stroke="#ff2a42" stroke-width="0.6" stroke-opacity="0.45" />
-            <!-- Emarginated Primary Flight Pinions (6 slotted feathers) -->
-            <path class="pinion-p1" d="M3,14 C-1,16 0,18 4,19" stroke="#050608" stroke-width="1.6" fill="none" />
-            <path class="pinion-p2" d="M5,19 C1,21 3,23 7,23" stroke="#050608" stroke-width="1.5" fill="none" />
-            <path class="pinion-p3" d="M8,23 C5,25 7,27 11,26" stroke="#050608" stroke-width="1.5" fill="none" />
-            <path class="pinion-p4" d="M12,26 C9,28 12,30 16,28" stroke="#050608" stroke-width="1.4" fill="none" />
-            <path class="pinion-p5" d="M17,28 C15,30 18,31 22,29" stroke="#050608" stroke-width="1.3" fill="none" />
-            <!-- Feather Shaft Highlights -->
-            <path d="M26,21 C18,18 10,19 4,18 M27,23 C20,22 14,24 8,24" stroke="#2a3245" stroke-width="0.65" fill="none" />
-          </g>
+    this.scene = new THREE.Scene();
 
-          <!-- Right Wing (Hinged at shoulder joint x=39, y=20) -->
-          <g class="crow-wing-right" style="transform-origin: 39px 20px;">
-            <!-- Main Wing Arm & Secondary Coverts -->
-            <path d="M39,20 C48,15 56,13 65,14 C67,16 67,18 66,20 C62,23 57,26 52,27 C47,28 42,26 39,24 Z" 
-                  fill="url(#wingGradient)" stroke="#ff2a42" stroke-width="0.6" stroke-opacity="0.45" />
-            <!-- Emarginated Primary Flight Pinions (6 slotted feathers) -->
-            <path class="pinion-p1" d="M65,14 C69,16 68,18 64,19" stroke="#050608" stroke-width="1.6" fill="none" />
-            <path class="pinion-p2" d="M63,19 C67,21 65,23 61,23" stroke="#050608" stroke-width="1.5" fill="none" />
-            <path class="pinion-p3" d="M60,23 C63,25 61,27 57,26" stroke="#050608" stroke-width="1.5" fill="none" />
-            <path class="pinion-p4" d="M56,26 C59,28 56,30 52,28" stroke="#050608" stroke-width="1.4" fill="none" />
-            <path class="pinion-p5" d="M51,28 C53,30 50,31 46,29" stroke="#050608" stroke-width="1.3" fill="none" />
-            <!-- Feather Shaft Highlights -->
-            <path d="M42,21 C50,18 58,19 64,18 M41,23 C48,22 54,24 60,24" stroke="#2a3245" stroke-width="0.65" fill="none" />
-          </g>
+    // Perspective Camera: at Z=100
+    this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 0.1, 1000);
+    this.camera.position.set(0, 0, 100);
+    this.camera.lookAt(0, 0, 0);
 
-          <!-- Aerodynamic Torso with Mantle & Scapulars -->
-          <path class="crow-torso" d="M30,17 C28,21 27,27 29,33 C32,36 36,36 39,33 C41,27 40,21 38,17 Z" 
-                fill="#0a0c13" stroke="#ff2a42" stroke-width="0.5" stroke-opacity="0.3" />
+    // Renderer with transparency & antialiasing
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      alpha: true,
+      antialias: true,
+      powerPreference: 'high-performance'
+    });
+    this.renderer.setSize(this.width, this.height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-          <!-- Throat Hackles (Feathery neck ruff) -->
-          <path d="M29,17 L31,21 L34,17 L37,21 L39,17" stroke="#1c202d" stroke-width="0.8" fill="none" />
+    // Dynamic Cinematic Lighting for 3D crow plumage
+    const ambientLight = new THREE.AmbientLight(0x222634, 1.2);
+    this.scene.add(ambientLight);
 
-          <!-- Corvid Head -->
-          <path class="crow-head" d="M31,17 C30,12 32,8 34,8 C36,8 38,12 37,17 Z" fill="#08090e" />
+    // Warm key light (golden amber from top-front)
+    this.keyLight = new THREE.DirectionalLight(0xffa200, 2.2);
+    this.keyLight.position.set(20, 40, 50);
+    this.scene.add(this.keyLight);
 
-          <!-- Articulated Sharp Beak (Opens during caw) -->
-          <g class="crow-beak-group" style="transform-origin: 34px 9px;">
-            <!-- Upper Beak Maxilla -->
-            <path class="crow-beak-upper" d="M32.5,9 L34,2 L35.5,9 Z" fill="#181a24" stroke="#ffa200" stroke-width="0.65" />
-            <!-- Lower Beak Mandible -->
-            <path class="crow-beak-lower" d="M33,9 L34,3.5 L35,9 Z" fill="#0e1017" />
-          </g>
+    // Molten crimson rim light (creates beautiful feather edge silhouette)
+    this.rimLight = new THREE.DirectionalLight(0xff2a42, 3.0);
+    this.rimLight.position.set(-30, -20, 30);
+    this.scene.add(this.rimLight);
 
-          <!-- Molten Amber / Ruby Eyes with Glint -->
-          <circle cx="32.5" cy="10" r="1.2" fill="#ff2a42" filter="url(#crowEyeGlow)" />
-          <circle cx="35.5" cy="10" r="1.2" fill="#ff2a42" filter="url(#crowEyeGlow)" />
-          <circle cx="32.5" cy="10" r="0.45" fill="#ffd166" />
-          <circle cx="35.5" cy="10" r="0.45" fill="#ffd166" />
-        </g>
-      </svg>
-    `;
+    // Calculate screen-to-world conversion factor at Z=0
+    this.updateWorldBounds();
 
-    document.body.appendChild(this.crow);
+    // Mouse & Motion State
+    this.mouse = { x: this.width / 2, y: this.height / 2 };
+    this.lastMouse = { x: this.width / 2, y: this.height / 2 };
+    this.worldMouse = new THREE.Vector3(0, 0, 0);
+    this.crowPos = new THREE.Vector3(0, 0, 0);
+    this.velocity = { x: 0, y: 0, speed: 0 };
 
-    // Reference wing and beak elements
-    this.leftWing = this.crow.querySelector('.crow-wing-left');
-    this.rightWing = this.crow.querySelector('.crow-wing-right');
-    this.beakGroup = this.crow.querySelector('.crow-beak-group');
+    this.headingAngle = 0; // Yaw
+    this.targetHeading = 0;
+    this.bankAngle = 0;    // Roll
+    this.pitchAngle = 0;   // Pitch
+    this.flapPhase = 0;
+    this.isCawing = false;
+  }
 
-    // Action indicator pill
+  updateWorldBounds() {
+    const vFov = (this.camera.fov * Math.PI) / 180;
+    this.worldHeight = 2 * Math.tan(vFov / 2) * this.camera.position.z;
+    this.worldWidth = this.worldHeight * this.camera.aspect;
+  }
+
+  screenToWorld(screenX, screenY, targetVec) {
+    const normX = (screenX / this.width) * 2 - 1;
+    const normY = -(screenY / this.height) * 2 + 1;
+    targetVec.x = normX * (this.worldWidth / 2);
+    targetVec.y = normY * (this.worldHeight / 2);
+    targetVec.z = 0;
+    return targetVec;
+  }
+
+  create3DCrow() {
+    this.crowGroup = new THREE.Group();
+    this.scene.add(this.crowGroup);
+
+    // Materials: Deep Obsidian Plumage with iridescent specular reflections
+    const featherMat = new THREE.MeshStandardMaterial({
+      color: 0x08090d,
+      roughness: 0.35,
+      metalness: 0.25,
+      flatShading: false
+    });
+
+    const featherMatDark = new THREE.MeshStandardMaterial({
+      color: 0x050608,
+      roughness: 0.45,
+      metalness: 0.15,
+      side: THREE.DoubleSide
+    });
+
+    const beakMat = new THREE.MeshStandardMaterial({
+      color: 0x161822,
+      roughness: 0.25,
+      metalness: 0.45
+    });
+
+    const beakTipMat = new THREE.MeshStandardMaterial({
+      color: 0xffa200,
+      roughness: 0.3,
+      metalness: 0.4
+    });
+
+    // 1. Torso / Body (Aerodynamic spindle)
+    const bodyGeo = new THREE.ConeGeometry(2.2, 8.5, 16);
+    // Rotate so cone tip points towards tail (backward along +Y)
+    bodyGeo.rotateX(Math.PI);
+    this.bodyMesh = new THREE.Mesh(bodyGeo, featherMat);
+    this.bodyMesh.scale.set(1.0, 1.25, 0.65);
+    this.crowGroup.add(this.bodyMesh);
+
+    // Breast / Chest curve (rounded front)
+    const chestGeo = new THREE.SphereGeometry(2.1, 16, 12);
+    const chestMesh = new THREE.Mesh(chestGeo, featherMat);
+    chestMesh.position.set(0, 2.2, 0.2);
+    chestMesh.scale.set(0.95, 1.2, 0.7);
+    this.crowGroup.add(chestMesh);
+
+    // 2. Corvid Head & Throat Hackles
+    const headGeo = new THREE.SphereGeometry(1.6, 16, 16);
+    this.headMesh = new THREE.Mesh(headGeo, featherMat);
+    this.headMesh.position.set(0, 4.4, 0.25);
+    this.headMesh.scale.set(0.85, 1.15, 0.85);
+    this.crowGroup.add(this.headMesh);
+
+    // 3. Articulated 3D Sharp Beak (Upper Maxilla + Animated Lower Mandible)
+    this.beakGroup = new THREE.Group();
+    this.beakGroup.position.set(0, 5.2, 0.25);
+    this.crowGroup.add(this.beakGroup);
+
+    // Upper Beak
+    const upperBeakGeo = new THREE.ConeGeometry(0.7, 3.4, 8);
+    // Beak points forward (+Y)
+    upperBeakGeo.translate(0, 1.7, 0);
+    this.upperBeak = new THREE.Mesh(upperBeakGeo, beakMat);
+    this.upperBeak.scale.set(0.8, 1.0, 0.5);
+    this.beakGroup.add(this.upperBeak);
+
+    // Beak Golden Tip Accent
+    const tipGeo = new THREE.ConeGeometry(0.4, 1.2, 8);
+    tipGeo.translate(0, 2.9, 0);
+    const tipMesh = new THREE.Mesh(tipGeo, beakTipMat);
+    tipMesh.scale.set(0.8, 1.0, 0.5);
+    this.beakGroup.add(tipMesh);
+
+    // Lower Mandible (Hinged to open realistically during cawing)
+    this.mandibleGroup = new THREE.Group();
+    this.mandibleGroup.position.set(0, 0.3, -0.1);
+    const lowerBeakGeo = new THREE.ConeGeometry(0.55, 3.0, 8);
+    lowerBeakGeo.translate(0, 1.5, 0);
+    this.lowerBeak = new THREE.Mesh(lowerBeakGeo, beakMat);
+    this.lowerBeak.scale.set(0.75, 0.95, 0.4);
+    this.mandibleGroup.add(this.lowerBeak);
+    this.beakGroup.add(this.mandibleGroup);
+
+    // 4. Molten Ruby/Amber 3D Corvid Eyes
+    const eyeGeo = new THREE.SphereGeometry(0.35, 10, 10);
+    const eyeMat = new THREE.MeshBasicMaterial({ color: 0xff2a42 });
+
+    const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+    leftEye.position.set(-0.9, 4.6, 0.7);
+    this.crowGroup.add(leftEye);
+
+    const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+    rightEye.position.set(0.9, 4.6, 0.7);
+    this.crowGroup.add(rightEye);
+
+    // Eye Pupils (amber sparks)
+    const pupilGeo = new THREE.SphereGeometry(0.16, 8, 8);
+    const pupilMat = new THREE.MeshBasicMaterial({ color: 0xffd166 });
+
+    const leftPupil = new THREE.Mesh(pupilGeo, pupilMat);
+    leftPupil.position.set(-0.95, 4.7, 0.9);
+    this.crowGroup.add(leftPupil);
+
+    const rightPupil = new THREE.Mesh(pupilGeo, pupilMat);
+    rightPupil.position.set(0.95, 4.7, 0.9);
+    this.crowGroup.add(rightPupil);
+
+    // Small eye point light
+    this.eyeLight = new THREE.PointLight(0xff2a42, 0.8, 8);
+    this.eyeLight.position.set(0, 4.6, 1.2);
+    this.crowGroup.add(this.eyeLight);
+
+    // 5. Dual-Jointed Hierarchical 3D Wings (Left & Right)
+    this.leftWingRoot = new THREE.Group();
+    this.leftWingRoot.position.set(-1.6, 2.0, 0.1);
+    this.crowGroup.add(this.leftWingRoot);
+
+    this.rightWingRoot = new THREE.Group();
+    this.rightWingRoot.position.set(1.6, 2.0, 0.1);
+    this.crowGroup.add(this.rightWingRoot);
+
+    // Build Left Wing
+    this.leftWingComponents = this.buildWingMesh(-1, featherMat, featherMatDark);
+    this.leftWingRoot.add(this.leftWingComponents.root);
+
+    // Build Right Wing
+    this.rightWingComponents = this.buildWingMesh(1, featherMat, featherMatDark);
+    this.rightWingRoot.add(this.rightWingComponents.root);
+
+    // 6. 3D Wedge Tail (Diamond rectrices)
+    const tailGroup = new THREE.Group();
+    tailGroup.position.set(0, -4.5, -0.1);
+    tailGroup.rotation.x = 0.12;
+
+    for (let i = -3; i <= 3; i++) {
+      const len = 7.5 - Math.abs(i) * 1.0; // Central feathers longest = classic wedge shape
+      const tailFeatherGeo = new THREE.PlaneGeometry(1.2, len);
+      tailFeatherGeo.translate(0, -len / 2, 0);
+      const tailFeather = new THREE.Mesh(tailFeatherGeo, featherMatDark);
+      tailFeather.position.x = i * 0.45;
+      tailFeather.rotation.z = -i * 0.04;
+      tailGroup.add(tailFeather);
+    }
+    this.crowGroup.add(tailGroup);
+    this.tailGroup = tailGroup;
+
+    // Scale overall 3D crow cursor to an ideal visual size
+    this.crowGroup.scale.set(0.95, 0.95, 0.95);
+  }
+
+  buildWingMesh(side, featherMat, featherMatDark) {
+    // side: -1 for left, +1 for right
+    const root = new THREE.Group();
+
+    // Upper Wing (Arm + Secondary coverts)
+    const armGeo = new THREE.BoxGeometry(6.5, 5.0, 0.3);
+    armGeo.translate(side * 3.25, -0.5, 0);
+    const armMesh = new THREE.Mesh(armGeo, featherMat);
+    root.add(armMesh);
+
+    // Elbow Joint
+    const elbow = new THREE.Group();
+    elbow.position.set(side * 6.2, 0.2, 0);
+    root.add(elbow);
+
+    // Forearm & Outer Wing
+    const forearmGeo = new THREE.BoxGeometry(7.0, 4.6, 0.25);
+    forearmGeo.translate(side * 3.5, -0.4, 0);
+    const forearmMesh = new THREE.Mesh(forearmGeo, featherMat);
+    elbow.add(forearmMesh);
+
+    // Emarginated Primary Flight Pinions (6 individually angled primary feather blades)
+    for (let p = 0; p < 6; p++) {
+      const pLen = 7.5 + p * 0.4;
+      const pGeo = new THREE.PlaneGeometry(1.1, pLen);
+      pGeo.translate(side * 0.5, -pLen / 2 + 1.5, 0);
+      const pMesh = new THREE.Mesh(pGeo, featherMatDark);
+      pMesh.position.set(side * (5.5 + p * 0.7), -0.5, (p - 3) * 0.04);
+      pMesh.rotation.z = side * (0.15 + p * 0.08);
+      elbow.add(pMesh);
+    }
+
+    return { root, elbow };
+  }
+
+  initParticles() {
+    // 3D Feather particles simulation
+    this.feathers = [];
+    this.featherGeo = new THREE.PlaneGeometry(0.9, 2.4);
+    this.featherMat = new THREE.MeshBasicMaterial({
+      color: 0x07080c,
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 0.9
+    });
+
+    // 3D Fire Ember Particles simulation
+    this.embers = [];
+    this.emberGeo = new THREE.SphereGeometry(0.35, 6, 6);
+  }
+
+  add3DFeather(pos, vel) {
+    const mesh = new THREE.Mesh(this.featherGeo, this.featherMat.clone());
+    mesh.position.copy(pos);
+    mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+    this.scene.add(mesh);
+
+    this.feathers.push({
+      mesh,
+      vel: vel.clone(),
+      rotSpeed: new THREE.Vector3(
+        (Math.random() - 0.5) * 0.12,
+        (Math.random() - 0.5) * 0.12,
+        (Math.random() - 0.5) * 0.12
+      ),
+      life: 1.0,
+      decay: 0.015 + Math.random() * 0.01
+    });
+  }
+
+  add3DEmber(pos, vel, colorHex) {
+    const mat = new THREE.MeshBasicMaterial({
+      color: colorHex,
+      transparent: true,
+      opacity: 1.0
+    });
+    const mesh = new THREE.Mesh(this.emberGeo, mat);
+    mesh.position.copy(pos);
+    this.scene.add(mesh);
+
+    this.embers.push({
+      mesh,
+      vel: vel.clone(),
+      life: 1.0,
+      decay: 0.035 + Math.random() * 0.02
+    });
+  }
+
+  initActionPill() {
     this.actionPill = document.createElement('div');
     this.actionPill.className = 'crow-action-pill';
     this.actionPill.textContent = 'EXPLORE';
     document.body.appendChild(this.actionPill);
-
-    // Particle Canvas for drifting feathers and fire embers
-    this.canvas = document.createElement('canvas');
-    this.canvas.className = 'crow-particle-canvas';
-    this.canvas.style.position = 'fixed';
-    this.canvas.style.top = '0';
-    this.canvas.style.left = '0';
-    this.canvas.style.width = '100%';
-    this.canvas.style.height = '100%';
-    this.canvas.style.pointerEvents = 'none';
-    this.canvas.style.zIndex = '99997';
-    document.body.appendChild(this.canvas);
-    this.ctx = this.canvas.getContext('2d');
-
-    // Position, motion, and animation variables
-    this.mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    this.lastMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    this.crowPos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    this.velocity = { x: 0, y: 0, speed: 0 };
-
-    this.headingAngle = 0; // Degrees
-    this.targetHeading = 0;
-    this.bankAngle = 0;
-    this.flapPhase = 0;
-
-    this.feathers = [];
-    this.sparks = [];
-
-    this.resizeCanvas();
-    this.initEvents();
-    this.render();
-  }
-
-  resizeCanvas() {
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
   }
 
   initEvents() {
-    window.addEventListener('resize', () => this.resizeCanvas());
+    window.addEventListener('resize', () => {
+      this.width = window.innerWidth;
+      this.height = window.innerHeight;
+      this.camera.aspect = this.width / this.height;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(this.width, this.height);
+      this.updateWorldBounds();
+    });
 
     window.addEventListener('mousemove', (e) => {
       this.mouse.x = e.clientX;
       this.mouse.y = e.clientY;
 
-      // Shed drifting feathers periodically during active flight
-      if (this.velocity.speed > 3.5 && Math.random() < 0.2) {
-        this.addFeather(
-          this.crowPos.x + (Math.random() - 0.5) * 16,
-          this.crowPos.y + (Math.random() - 0.5) * 16,
-          -this.velocity.x * 0.15 + (Math.random() - 0.5) * 1.5,
-          -this.velocity.y * 0.15 + (Math.random() * 0.8 + 0.5)
+      // Shed drifting feathers during active flight
+      if (this.velocity.speed > 4.0 && Math.random() < 0.22) {
+        const spawnPos = this.crowPos.clone();
+        spawnPos.x += (Math.random() - 0.5) * 4;
+        spawnPos.y += (Math.random() - 0.5) * 4;
+        const spawnVel = new THREE.Vector3(
+          -this.velocity.x * 0.08 + (Math.random() - 0.5) * 0.4,
+          -this.velocity.y * 0.08 - 0.3 - Math.random() * 0.4,
+          (Math.random() - 0.5) * 0.5
         );
+        this.add3DFeather(spawnPos, spawnVel);
       }
 
-      // Shed molten embers from the crow's wake
-      if (Math.random() < 0.3) {
-        const emberColor = Math.random() < 0.55 ? 'rgba(255, 42, 66, 0.9)' : 'rgba(255, 107, 53, 0.9)';
-        this.addSpark(
-          this.crowPos.x + (Math.random() - 0.5) * 12,
-          this.crowPos.y + 12 + Math.random() * 6,
-          (Math.random() - 0.5) * 1.8,
-          -0.5 - Math.random() * 1.6,
-          2.4,
-          emberColor
+      // Shed molten embers
+      if (Math.random() < 0.35) {
+        const emberColor = Math.random() < 0.6 ? 0xff2a42 : 0xffa200;
+        const spawnPos = this.crowPos.clone();
+        spawnPos.y -= 3.0;
+        const spawnVel = new THREE.Vector3(
+          (Math.random() - 0.5) * 0.6,
+          -0.6 - Math.random() * 0.8,
+          (Math.random() - 0.5) * 0.6
         );
+        this.add3DEmber(spawnPos, spawnVel, emberColor);
       }
     });
 
-    window.addEventListener('mousedown', (e) => {
-      // 1. Play authentic realistic crow caw sound
+    // Mousedown / Click trigger: Realistic Indian Crow Caw + 3D Dive & Beak Opening
+    const triggerCawInteraction = () => {
+      // 1. Play original authentic Indian Crow Caw sound
       if (window.AudioSynth && window.AudioSynth.playCrowCaw) {
         window.AudioSynth.playCrowCaw();
       }
 
-      // 2. Beak caw animation
-      this.triggerCawAnimation();
+      // 2. Beak caw animation (mandible opens wide)
+      this.animateCaw();
 
-      // 3. Rapid dive / wing attack stance
-      this.crow.style.transform = `translate(${this.crowPos.x}px, ${this.crowPos.y}px) scale(0.82) rotate(${this.headingAngle}deg)`;
-
-      // 4. Burst of fiery embers on strike
-      const emberColors = ['#ff2a42', '#ff6b35', '#ffa200', '#ffd166'];
-      for (let i = 0; i < 16; i++) {
-        const angle = (Math.PI * 2 * i) / 16 + Math.random() * 0.3;
-        const speed = 2.2 + Math.random() * 4.5;
-        const color = emberColors[Math.floor(Math.random() * emberColors.length)];
-        this.addSpark(e.clientX, e.clientY, Math.cos(angle) * speed, Math.sin(angle) * speed - 0.8, 3.4, color);
+      // 3. 3D dive strike: burst of embers & feathers
+      const emberColors = [0xff2a42, 0xff6b35, 0xffa200, 0xffd166];
+      for (let i = 0; i < 14; i++) {
+        const angle = (Math.PI * 2 * i) / 14 + Math.random() * 0.4;
+        const spd = 0.8 + Math.random() * 1.5;
+        const vel = new THREE.Vector3(Math.cos(angle) * spd, Math.sin(angle) * spd, (Math.random() - 0.5) * 1.0);
+        const col = emberColors[Math.floor(Math.random() * emberColors.length)];
+        this.add3DEmber(this.crowPos, vel, col);
       }
 
-      // 5. Shed burst of raven feathers
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 4; i++) {
         const angle = Math.random() * Math.PI * 2;
-        const speed = 1.0 + Math.random() * 2.2;
-        this.addFeather(e.clientX, e.clientY, Math.cos(angle) * speed, Math.sin(angle) * speed + 0.8);
+        const spd = 0.4 + Math.random() * 0.8;
+        const vel = new THREE.Vector3(Math.cos(angle) * spd, Math.sin(angle) * spd - 0.5, (Math.random() - 0.5) * 0.8);
+        this.add3DFeather(this.crowPos, vel);
       }
-    });
+    };
 
-    window.addEventListener('mouseup', () => {
-      this.crow.style.transform = `translate(${this.crowPos.x}px, ${this.crowPos.y}px) scale(1) rotate(${this.headingAngle}deg)`;
-    });
+    window.addEventListener('mousedown', triggerCawInteraction);
 
-    // Also trigger on document click to ensure buttons/cards trigger caw
+    // Also trigger on document click for button clicks
     document.addEventListener('click', () => {
       if (window.AudioSynth && window.AudioSynth.playCrowCaw) {
         window.AudioSynth.playCrowCaw();
       }
-      this.triggerCawAnimation();
+      this.animateCaw();
     });
 
-    // Delegate hover listeners for interactive feedback
+    // Interactive element hover labels
     document.addEventListener('mouseover', (e) => {
       const target = e.target.closest('[data-cursor], a, button, .project-card-tilt, .contact-action-card, .t-cmd-btn, .filter-chip, .tab-btn');
       if (!target) return;
 
       const cursorType = target.getAttribute('data-cursor');
-
       if (cursorType === 'view' || target.classList.contains('project-card-tilt')) {
-        document.body.classList.add('cursor-view');
         this.actionPill.textContent = 'EXPLORE';
+        this.actionPill.style.opacity = '1';
       } else if (cursorType === 'copy' || target.classList.contains('contact-action-card')) {
-        document.body.classList.add('cursor-copy');
         this.actionPill.textContent = 'COPY';
+        this.actionPill.style.opacity = '1';
       } else if (target.tagName.toLowerCase() === 'a' && target.getAttribute('download')) {
-        document.body.classList.add('cursor-hover');
         this.actionPill.textContent = 'DOWNLOAD';
+        this.actionPill.style.opacity = '1';
       } else {
-        document.body.classList.add('cursor-hover');
         this.actionPill.textContent = 'ENGAGE';
+        this.actionPill.style.opacity = '1';
       }
     });
 
     document.addEventListener('mouseout', (e) => {
       const target = e.target.closest('[data-cursor], a, button, .project-card-tilt, .contact-action-card, .t-cmd-btn, .filter-chip, .tab-btn');
       if (!target) return;
-      document.body.classList.remove('cursor-hover', 'cursor-view', 'cursor-copy');
+      this.actionPill.style.opacity = '0';
     });
   }
 
-  /**
-   * Realistic beak opening animation during crow caw
-   */
-  triggerCawAnimation() {
-    if (this.beakGroup) {
-      this.beakGroup.style.transition = 'transform 0.08s ease';
-      this.beakGroup.style.transform = 'scaleY(1.5) scaleX(1.15) translateY(-2px)';
+  animateCaw() {
+    this.isCawing = true;
+    if (this.mandibleGroup) {
+      // Lower mandible drops down in 3D
+      this.mandibleGroup.rotation.x = -0.45;
       setTimeout(() => {
-        if (this.beakGroup) {
-          this.beakGroup.style.transform = 'scaleY(1) scaleX(1) translateY(0)';
+        if (this.mandibleGroup) {
+          this.mandibleGroup.rotation.x = 0;
         }
-      }, 280);
+        this.isCawing = false;
+      }, 350);
     }
   }
 
-  addFeather(x, y, vx, vy) {
-    this.feathers.push({
-      x,
-      y,
-      vx,
-      vy,
-      angle: Math.random() * Math.PI * 2,
-      rotSpeed: (Math.random() - 0.5) * 0.08,
-      swayPhase: Math.random() * Math.PI * 2,
-      swaySpeed: 0.04 + Math.random() * 0.03,
-      size: 9 + Math.random() * 7,
-      alpha: 0.95,
-      decay: 0.012 + Math.random() * 0.008
-    });
-  }
+  animate() {
+    requestAnimationFrame(() => this.animate());
 
-  addSpark(x, y, vx, vy, size, color) {
-    this.sparks.push({
-      x,
-      y,
-      vx,
-      vy,
-      size,
-      alpha: 1,
-      color,
-      decay: 0.032 + Math.random() * 0.02
-    });
-  }
-
-  render() {
-    requestAnimationFrame(() => this.render());
-
-    // Calculate instantaneous mouse velocity
+    // Instantaneous pixel delta & speed
     const dx = this.mouse.x - this.lastMouse.x;
     const dy = this.mouse.y - this.lastMouse.y;
     this.velocity.x = dx;
@@ -314,121 +491,123 @@ class FlyingCrowCursor {
     this.lastMouse.x = this.mouse.x;
     this.lastMouse.y = this.mouse.y;
 
-    // Smooth position interpolation (spring-lerp)
-    this.crowPos.x += (this.mouse.x - this.crowPos.x) * 0.28;
-    this.crowPos.y += (this.mouse.y - this.crowPos.y) * 0.28;
+    // Convert mouse position to 3D world coordinates
+    this.screenToWorld(this.mouse.x, this.mouse.y, this.worldMouse);
 
-    // Calculate flight vector heading angle
-    if (this.velocity.speed > 1.2) {
-      // 90deg offset because SVG crow points UP at 0deg
-      this.targetHeading = (Math.atan2(dy, dx) * 180 / Math.PI) + 90;
-    }
+    // Smooth spring-lerp chasing world target
+    this.crowPos.x += (this.worldMouse.x - this.crowPos.x) * 0.26;
+    this.crowPos.y += (this.worldMouse.y - this.crowPos.y) * 0.26;
+    this.crowGroup.position.set(this.crowPos.x, this.crowPos.y, 0);
 
-    // Shortest-arc smooth angle interpolation
-    let angleDiff = this.targetHeading - this.headingAngle;
-    while (angleDiff < -180) angleDiff += 360;
-    while (angleDiff > 180) angleDiff -= 360;
-    this.headingAngle += angleDiff * 0.16;
-
-    // Aerodynamic banking roll based on lateral turn velocity
-    const targetBank = Math.max(-24, Math.min(24, dx * 1.2));
-    this.bankAngle += (targetBank - this.bankAngle) * 0.2;
-
-    // Dynamic wing flap frequency: flaps rapidly during fast flight, glides gently when soaring
-    if (this.velocity.speed > 1.5) {
-      this.flapPhase += 0.18 + Math.min(this.velocity.speed, 20) * 0.04;
-      const flapAmp = 26; // Flap angle amplitude
-      const flapAngle = Math.sin(this.flapPhase) * flapAmp;
-
-      if (this.leftWing && this.rightWing) {
-        this.leftWing.style.transform = `rotate(${flapAngle}deg) scaleY(${1 - Math.abs(flapAngle) * 0.01})`;
-        this.rightWing.style.transform = `rotate(${-flapAngle}deg) scaleY(${1 - Math.abs(flapAngle) * 0.01})`;
-      }
-    } else {
-      // Stationary glide: gentle thermal soaring breath
-      this.flapPhase += 0.04;
-      const flapAngle = Math.sin(this.flapPhase) * 5;
-      if (this.leftWing && this.rightWing) {
-        this.leftWing.style.transform = `rotate(${flapAngle}deg)`;
-        this.rightWing.style.transform = `rotate(${-flapAngle}deg)`;
-      }
-    }
-
-    // Apply 3D aerodynamic flight transformation to crow
-    this.crow.style.transform = `translate(${this.crowPos.x}px, ${this.crowPos.y}px) translate(-50%, -12%) rotate(${this.headingAngle}deg) skewX(${this.bankAngle * 0.35}deg)`;
-
-    // Position action pill near the crow
+    // Position action pill beside crow in screen space
     if (this.actionPill) {
-      this.actionPill.style.transform = `translate(${this.crowPos.x + 26}px, ${this.crowPos.y + 14}px)`;
+      this.actionPill.style.transform = `translate(${this.mouse.x + 28}px, ${this.mouse.y + 14}px)`;
     }
 
-    // Render Canvas: Feathers & Embers
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    // 3D Heading Calculation (Yaw)
+    if (this.velocity.speed > 1.2) {
+      // Model points towards +Y; calculate angle relative to +Y
+      this.targetHeading = Math.atan2(-dx, dy);
+    }
 
-    // 1. Drifting Raven Feathers
+    // Shortest-arc smooth angle interpolation for Yaw
+    let yawDiff = this.targetHeading - this.headingAngle;
+    while (yawDiff < -Math.PI) yawDiff += Math.PI * 2;
+    while (yawDiff > Math.PI) yawDiff -= Math.PI * 2;
+    this.headingAngle += yawDiff * 0.18;
+
+    // Aerodynamic Banking (Roll) based on turn rate
+    const targetBank = Math.max(-0.6, Math.min(0.6, (-dx * 0.035)));
+    this.bankAngle += (targetBank - this.bankAngle) * 0.22;
+
+    // Pitch: dives slightly when moving down, ascends when moving up
+    const targetPitch = Math.max(-0.4, Math.min(0.4, (-dy * 0.02)));
+    this.pitchAngle += (targetPitch - this.pitchAngle) * 0.2;
+
+    // Apply 3D Rotations to Crow Group
+    this.crowGroup.rotation.set(0, 0, 0);
+    this.crowGroup.rotateZ(this.headingAngle);
+    this.crowGroup.rotateY(this.bankAngle);
+    this.crowGroup.rotateX(this.pitchAngle);
+
+    // Wing Kinematics: 3D Flapping & Soaring
+    if (this.velocity.speed > 1.8) {
+      // Active flapping in flight
+      this.flapPhase += 0.22 + Math.min(this.velocity.speed, 20) * 0.03;
+      const flapAmp = 0.55; // Radians
+      const flapZ = Math.sin(this.flapPhase) * flapAmp;
+      const flapX = Math.cos(this.flapPhase) * 0.15; // Dihedral sweep
+
+      this.leftWingRoot.rotation.z = -flapZ;
+      this.leftWingRoot.rotation.x = flapX;
+      this.leftWingComponents.elbow.rotation.z = -flapZ * 0.6;
+
+      this.rightWingRoot.rotation.z = flapZ;
+      this.rightWingRoot.rotation.x = flapX;
+      this.rightWingComponents.elbow.rotation.z = flapZ * 0.6;
+    } else {
+      // Gentle thermal soaring glide
+      this.flapPhase += 0.04;
+      const glideZ = Math.sin(this.flapPhase) * 0.08;
+
+      this.leftWingRoot.rotation.z = -glideZ;
+      this.leftWingRoot.rotation.x = 0;
+      this.leftWingComponents.elbow.rotation.z = -glideZ * 0.3;
+
+      this.rightWingRoot.rotation.z = glideZ;
+      this.rightWingRoot.rotation.x = 0;
+      this.rightWingComponents.elbow.rotation.z = glideZ * 0.3;
+    }
+
+    // Subtle tail flex
+    if (this.tailGroup) {
+      this.tailGroup.rotation.z = -this.bankAngle * 0.4;
+      this.tailGroup.rotation.x = 0.12 - this.pitchAngle * 0.5;
+    }
+
+    // Update 3D Feathers
     for (let i = this.feathers.length - 1; i >= 0; i--) {
       const f = this.feathers[i];
-      f.swayPhase += f.swaySpeed;
-      f.x += f.vx + Math.sin(f.swayPhase) * 0.9;
-      f.y += f.vy;
-      f.angle += f.rotSpeed;
-      f.alpha -= f.decay;
+      f.mesh.position.add(f.vel);
+      f.mesh.rotation.x += f.rotSpeed.x;
+      f.mesh.rotation.y += f.rotSpeed.y;
+      f.mesh.rotation.z += f.rotSpeed.z;
+      f.life -= f.decay;
 
-      if (f.alpha <= 0) {
+      if (f.life <= 0) {
+        this.scene.remove(f.mesh);
+        f.mesh.geometry.dispose();
+        f.mesh.material.dispose();
         this.feathers.splice(i, 1);
-        continue;
+      } else {
+        f.mesh.material.opacity = f.life * 0.85;
       }
-
-      this.ctx.save();
-      this.ctx.globalAlpha = f.alpha;
-      this.ctx.translate(f.x, f.y);
-      this.ctx.rotate(f.angle);
-
-      // Feather Quill & Vane
-      this.ctx.fillStyle = '#090a0f';
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, -f.size);
-      this.ctx.quadraticCurveTo(f.size * 0.42, 0, 0, f.size);
-      this.ctx.quadraticCurveTo(-f.size * 0.42, 0, 0, -f.size);
-      this.ctx.fill();
-
-      // Molten rachis line (faint crimson spine)
-      this.ctx.strokeStyle = `rgba(255, 42, 66, ${f.alpha * 0.75})`;
-      this.ctx.lineWidth = 0.6;
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, -f.size * 0.9);
-      this.ctx.lineTo(0, f.size * 0.9);
-      this.ctx.stroke();
-
-      this.ctx.restore();
     }
 
-    // 2. Fiery Embers
-    for (let i = this.sparks.length - 1; i >= 0; i--) {
-      const s = this.sparks[i];
-      s.x += s.vx;
-      s.y += s.vy;
-      s.alpha -= s.decay;
+    // Update 3D Embers
+    for (let i = this.embers.length - 1; i >= 0; i--) {
+      const em = this.embers[i];
+      em.mesh.position.add(em.vel);
+      em.life -= em.decay;
 
-      if (s.alpha <= 0) {
-        this.sparks.splice(i, 1);
-        continue;
+      if (em.life <= 0) {
+        this.scene.remove(em.mesh);
+        em.mesh.geometry.dispose();
+        em.mesh.material.dispose();
+        this.embers.splice(i, 1);
+      } else {
+        em.mesh.material.opacity = em.life;
+        const sc = Math.max(0.01, em.life);
+        em.mesh.scale.set(sc, sc, sc);
       }
-
-      this.ctx.save();
-      this.ctx.globalAlpha = s.alpha;
-      this.ctx.fillStyle = s.color;
-      this.ctx.shadowColor = s.color;
-      this.ctx.shadowBlur = 8;
-      this.ctx.beginPath();
-      this.ctx.arc(s.x, s.y, s.size * s.alpha, 0, Math.PI * 2);
-      this.ctx.fill();
-      this.ctx.restore();
     }
+
+    // Render 3D Scene
+    this.renderer.render(this.scene, this.camera);
   }
 }
 
-// Initialize flying crow cursor when DOM is ready
+// Initialize 3D Crow Cursor when DOM is ready
 window.addEventListener('DOMContentLoaded', () => {
-  new FlyingCrowCursor();
+  new ThreeCrowCursor();
 });
