@@ -220,6 +220,14 @@ class FlyingCrowCursor {
       this.crow.style.transform = `translate(${this.crowPos.x}px, ${this.crowPos.y}px) scale(1) rotate(${this.headingAngle}deg)`;
     });
 
+    // Also trigger on document click to ensure buttons/cards trigger caw
+    document.addEventListener('click', () => {
+      if (window.AudioSynth && window.AudioSynth.playCrowCaw) {
+        window.AudioSynth.playCrowCaw();
+      }
+      this.triggerCawAnimation();
+    });
+
     // Delegate hover listeners for interactive feedback
     document.addEventListener('mouseover', (e) => {
       const target = e.target.closest('[data-cursor], a, button, .project-card-tilt, .contact-action-card, .t-cmd-btn, .filter-chip, .tab-btn');
